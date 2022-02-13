@@ -30,25 +30,24 @@ class Greenpoint(models.Model):
 
 class Userpoint(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    carbonpoint = models.IntegerField()
-    greenpoint = models.IntegerField()
-    vehiclepoint = models.IntegerField()
-    totalpoint = models.IntegerField()
+    carbonpoint = models.IntegerField(blank=True, null=True)
+    greenpoint = models.IntegerField(blank=True, null=True)
+    vehiclepoint = models.IntegerField(blank=True, null=True)
+    totalpoint = models.IntegerField(blank=True, null=True)
     # carbonpoint = models.ForeignKey(Carbonpoint, on_delete=models.CASCADE)
     # active = models.BooleanField(default=True)
     # quantity = models.PositiveSmallIntegerField(null=True, default=1,
-    #                                             validators=[MinValueValidator(1), MaxValueValidator(100)])
-    create_date = models.DateTimeField(auto_now_add=True)
-    modify_date = models.DateTimeField(null=True, blank=True)
+    # validators=[MinValueValidator(1), MaxValueValidator(100)])
+    create_date = models.DateTimeField(editable=True)
 
     class Meta:
         verbose_name = '탄소포인트 장바구니'
 
     def sub_total(self):
-        return self.carbonpoint.cpoint * self.quantity
+        return self.carbonpoint
 
     def __str__(self):
-        return self.carbonpoint.pointtype
+        return self.user.username
 
 
 
