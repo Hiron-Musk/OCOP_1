@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div>
+    <div class="green-title">
+            <h5 class="my-3 border-bottom pb-2" align="center">그린포인트</h5>
+    </div>
+    <div>
+        <div class="green-list">
+            {% csrf_token %}
+            {% for Greenpoint in greenlist %}
+            <td>{{ Greenpoint.pointtype }}</td>
+            <td>{{ Greenpoint.gpoint }}p</td>
+            <td>{{ Greenpoint.create_date }}</td>
+            <td>{{ Greenpoint.modify_date }}</td>
+            <a href = "{% url 'point:greenmodify' Greenpoint.id %}" class = 'btn btn-sm btn-outline-secondary'>수정하기</a>
+            <a href = "#" class = 'delete btn btn-sm btn-outline-secondary' data-uri="{% url 'point:greendelete' Greenpoint.id %}">삭제하기</a>
+            <p></p>
+            {% endfor %}
+
+        </div>
+    </div>
+        <div>
+            <a href="{% url 'point:creategreen' %}" class="btn btn-primary">추가하기</a>
+        </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script type = 'text/javascript'>
+    $(document).ready(function(){
+        $(".delete").on('click', function(){
+            if(confirm('정말로 삭제하시겠습니까?')){
+                location.href = $(this).data('uri');
+            }
+        });
+    });
+</script>
+{% endblock %}

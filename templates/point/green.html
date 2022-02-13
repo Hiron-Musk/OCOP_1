@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div>
+    <div class="green-title">
+            <h5 class="my-3 border-bottom pb-2" align="center">그린포인트</h5>
+    </div>
+    <div>
+        <div class="green-list">
+            {% for Greenpoint in green_list %}
+            <td>{{ Greenpoint.pointtype }}<td>
+            <td>{{ Greenpoint.gpoint }}P</td>
+            <form action="{% url 'point:addgreen' Greenpoint.id %}" method="post">
+                {{ gaddcart }}
+                {% csrf_token %}
+                <input type="submit" class="ben btn-primary ben-sm" value="포인트 등록하기">
+            </form>
+            <p></p>
+            {% endfor %}
+            <a href = "{% url 'point:detailgreen' %}" class = 'btn btn-sm btn-outline-secondary'>포인트바구니바로가기</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Shopping cart
+{% endblock %}
+
+{% block content %}
+    <table class="table table-striped">
+        <tbody>
+        {% for item in cart %}
+            {% with Carbonpoint=item.carbonpoint %}
+            <tr>
+                <td>{{ Carbonpoint.pointtype }}</td>
+                <td>
+                    <form action="{% url 'point:add' Carbonpoint.id %}" method="post">
+                        {{ item.quantity }}
+                        {{ item.is_update }}
+                        <input type="submit" class="btn btn-primary" value="수량 조절">
+                        {% csrf_token %}
+                    </form>
+                </td>
+                <td><a href="{% url 'point:remove' Carbonpoint.id %}">삭제하기</a></td>
+                <td class="num">{{ item.cpoint }}P</td>
+                <td class="num">{{ item.total_cpoint }}P</td>
+            </tr>
+            {% endwith %}
+        {% endfor %}
+        <tr class="total">
+            <td>Total</td>
+            <td colspan="4"></td>
+            <td class="num">{{ cart.get_total_point }}P</td>
+        </tr>
+        </tbody>
+    </table>
+    <p class="text-right">
+        <a href="{% url 'point:carbonpage' %}" class="btn btn-secondary">포인트 추가하기</a>
+        <a href="#" class="btn btn-primary">저장하기</a>
+        <form method = "post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type = 'submit' class = 'btn btn-primary'>저장하기</button>
+    </form>
+    </p>
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!-- Page Content-->
+        <div class="container px-4 px-lg-5">
+            <!-- Heading Row-->
+            <div class="row gx-4 gx-lg-5 align-items-center my-5">
+                <div class="col-lg-7"><img class="img-fluid rounded mb-4 mb-lg-0" src='{% static "assets/main.jpg" %}' alt="..." /></div>
+                <div class="col-lg-5">
+                    <h1 class="font-weight-light"><strong>OCOP</strong></h1>
+                    <h4>환경 공공 포인트 조회 웹페이지 </h4>
+                    <br>
+                    <p>OCOP는 이산화탄소의 원소기호인 CO2의 분자배열과<br>Point의 합성어입니다.</p>
+                    <br>
+                    <a class="btn btn-outline-success" href="{% url 'OCOP:login' %}">포인트 조회하기</a>
+                </div>
+            </div>
+            <!-- Call to Action-->
+            <div class="card text-white bg-success mb-3 text-center">
+                <div class="card-body"><p class="text-white m-0"> 공공 인센티브 및 포인트에는 <strong>탄소포인트, 탄소중립실천포인트, 그린포인트, 자동차탄소포인트</strong>가 있습니다.</p></div>
+            </div>
+            <br>
+            <!-- Content Row-->
+            <div class="row gx-4 gx-lg-6">
+                <div class="col-md-3 mb-4">
+                    <div class="card border-success mb-3 h-100">
+                        <br>
+                        <img class="card-img-top" src='{% static "assets/point1.png" %}' alt="Card image cap">
+                        <div class="card-body">
+                            <h2 class="card-title"><strong><center>탄소<br>포인트</strong></center></h2>
+                            <br>
+                            <p class="card-text"><center>가정, 상업에서 전기, 상수도, 도시가스의 감축률에 따라<br> 인센티브를 지급하는 제도</center></p>
+                        </div>
+                        <div class="card-footer"><a class="btn btn-outline-success" href="https://cpoint.or.kr/" target="_blank">더 알아보기</a></div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="card border-success mb-3 h-100">
+                        <br>
+                        <img class="card-img-top" src='{% static "assets/point2.png" %}' alt="Card image cap">
+                        <div class="card-body">
+                            <h2 class="card-title"><strong><center>탄소중립<br>실천포인트</strong></center></h2>
+                            <br>
+                            <p class="card-text"><center>민간기업의 친환경 활동<br> 이용 시 이용실적에 따라<br>인센티브를 지급하는 제도</center></p>
+                        </div>
+                        <div class="card-footer"><a class="btn btn-outline-success" href="https://cpoint.or.kr/netzero/" target="_blank">더 알아보기</a></div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="card border-success mb-3 h-100">
+                        <br>
+                        <img class="card-img-top" src='{% static "assets/point3.png" %}' alt="Card image cap">
+                        <div class="card-body">
+                            <h2 class="card-title"><strong><center>그린<br>포인트</strong></center></h2>
+                            <br>
+                            <p class="card-text"><center>국립공원 내 쓰레기 수거 및<br>자기 쓰레기를 가져가는 경우 인센티브를 지급하는 제도</center></p>
+                        </div>
+                        <div class="card-footer"><a class="btn btn-outline-success" href="https://greenpoint.knps.or.kr/main.do" target="_blank" >더 알아보기</a></div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="card border-success mb-3 h-100">
+                        <br>
+                        <img class="card-img-top" src='{% static "assets/point4.png" %}' alt="Card image cap">
+                        <div class="card-body">
+                            <h2 class="card-title"><strong><center>자동차<br>탄소포인트</strong></center></h2>
+                            <br>
+                            <p class="card-text"><center>승용,승합 자동차의 운전자가<br>주행거리를 감축할 경우<br>인센티브를 지급하는 제도</center></p>
+                        </div>
+                        <div class="card-footer"><a class="btn btn-outline-success" href="https://car.cpoint.or.kr/com/main/user/index.do" target="_blank">더 알아보기</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer-->
+        <footer class="py-3 bg-success">
+            <div class="container px-4 px-lg-5"><p class="m-0 text-center text-white">Copyright &copy; OCOP. All Rights Reserved.</p></div>
+        </footer>
+{% endblock %}

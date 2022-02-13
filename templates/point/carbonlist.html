@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div>
+    <div class="green-title">
+            <h5 class="my-3 border-bottom pb-2" align="center">탄소포인트</h5>
+    </div>
+    <div>
+        <div class="carbon-list">
+            {% csrf_token %}
+            {% for Carbonpoint in carbonlist %}
+            <td>{{ Carbonpoint.pointtype }}</td>
+            <td>{{ Carbonpoint.cpoint }}P</td>
+            <td>{{ Carbonpoint.create_date }}</td>
+            <td>{{ Carbonpoint.modify_date }}</td>
+            <a href = "{% url 'point:carbonmodify' Carbonpoint.id %}" class = 'btn btn-sm btn-outline-secondary'>수정하기</a>
+            <a href = "#" class = 'delete btn btn-sm btn-outline-secondary' data-uri="{% url 'point:carbondelete' Carbonpoint.id %}">삭제하기</a>
+            <p></p>
+            {% endfor %}
+        </div>
+
+    </div>
+        <div>
+            <a href="{% url 'point:createcarbon' %}" class="btn btn-primary">추가하기</a>
+        </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script type = 'text/javascript'>
+    $(document).ready(function(){
+        $(".delete").on('click', function(){
+            if(confirm('정말로 삭제하시겠습니까?')){
+                location.href = $(this).data('uri');
+            }
+        });
+    });
+</script>
+{% endblock %}

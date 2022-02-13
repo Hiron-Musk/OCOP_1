@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container my-3">
+    <div>
+        <div class="mypage-title">
+                <h5 class="my-3 border-bottom pb-2" align="center">마이페이지</h5>
+        </div>
+    </div>
+    <div class ="row">
+        <div class="col-xl-6 col-lg-4">
+             <div id="wrapper cart">
+                <div id="content-wrapper cart" class="d-flex flex-column">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">My Chart</h6>
+                        </div>
+                        <div class = "card-body">
+                            <img src = "data:image/png;base64,{{ data }}" alt="" height="100%", width="100%">
+                        </div>
+                    </div>
+                </div>
+             </div>
+
+        </div>
+
+        <div class="col-xl-6 col-lg-7">
+            <div id="wrapper">
+                <div id="content-wrapper" class="d-flex flex-column">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">My Point</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive text-center">
+                                <table id = "table_user" class="table table-bordered" width="100%" height="100%" cellspacing="0" cellpadding="0" align="center">
+                                    <thead>
+                                        <tr>
+                                            <th>포인트</th>
+                                            <th>리스트</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Tiger Nixon</td>
+                                            <td>System Architect</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Garrett Winters</td>
+                                            <td>Accountant</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ashton Cox</td>
+                                            <td>Junior Technical Author</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Cedric Kelly</td>
+                                            <td>Senior Javascript Developer</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Airi Satou</td>
+                                            <td>Accountant</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Brielle Williamson</td>
+                                            <td>Integration Specialist</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Herrod Chandler</td>
+                                            <td>Sales Assistant</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+<!--{% block script %}-->
+<!--<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>-->
+<!--&lt;!&ndash;정렬기능 부트스트랩&ndash;&gt;-->
+<!--<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>-->
+<!--<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>-->
+
+<!--<script type='text/javascript'>-->
+<!--$(document).ready(function() {-->
+<!--    $('#table_user').DataTable({-->
+<!--        searching: false,-->
+<!--        ordering: true,-->
+<!--        paging: false,-->
+<!--        info: false,-->
+<!--        scrollX: false,-->
+<!--        columnDefs: [-->
+<!--		    { targets: 2, width: 100 }-->
+<!--		]-->
+<!--    });-->
+<!--});-->
+<!--</script>-->
+<!--{% endblock %}-->

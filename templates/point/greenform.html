@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div>
+    <h5 >그린포인트</h5>
+    <form method = "post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type = 'submit' class = "btn btn-primary">저장하기</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Shopping cart
+{% endblock %}
+
+{% block content %}
+    <table class="table table-striped">
+        <tbody>
+        {% for gitem in cart %}
+            {% with Greenpoint=gitem.greenpoint %}
+            <tr>
+                <td>{{ Greenpoint.pointtype }}</td>
+                <td>
+                    <form action="{% url 'point:addgreen' Greenpoint.id %}" method="post">
+                        {{ gitem.quantity }}
+                        {{ gitem.is_update }}
+                        <input type="submit" class="btn btn-primary" value="수량 조절">
+                        {% csrf_token %}
+                    </form>
+                </td>
+                <td><a href="{% url 'point:removegreen' Greenpoint.id %}">삭제하기</a></td>
+                <td class="num">{{ gitem.gpoint }}P</td>
+                <td class="num">{{ gitem.total_gpoint }}P</td>
+            </tr>
+            {% endwith %}
+        {% endfor %}
+        <tr class="total">
+            <td>Total</td>
+            <td colspan="4"></td>
+            <td class="num">{{ cart.get_total_gpoint }}P</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p class="text-right">
+        <a href="{% url 'point:greenpage' %}" class="btn btn-secondary">포인트 추가하기</a>
+        <a href="#" class="btn btn-primary">저장하기</a>
+    </p>
+{% endblock %}

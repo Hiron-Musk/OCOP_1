@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div>
+    <div class="green-title">
+            <h5 class="my-3 border-bottom pb-2" align="center">탄소포인트</h5>
+    </div>
+    <div>
+        <div class="green-list">
+            {% for Carbonpoint in carbon_list %}
+            <td>{{ Carbonpoint.pointtype }}<td>
+            <td>{{ Carbonpoint.cpoint }}P</td>
+            <form action="{% url 'point:add' Carbonpoint.id %}" method="post">
+                {{ addcart }}
+                {% csrf_token %}
+                <input type="submit" class="ben btn-primary ben-sm" value="포인트 등록하기">
+            </form>
+            <p></p>
+            {% endfor %}
+            <td>탄소포인트 </td><input type=""><td>P</td>
+            <td><a href = "https://cpoint.or.kr/user/info/calPoint.do" class = 'btn btn-sm btn-outline-secondary'>조회하기</a></td>
+            <P></P>
+            <a href = "{% url 'point:detail' %}" class = 'btn btn-sm btn-outline-secondary'>포인트바구니바로가기</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

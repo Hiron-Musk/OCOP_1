@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!--drop down 문제 코드-->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>OCO:P</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href='{% static "assets/logo.JPG" %}' />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href='{% static "css/styles.css" %}' rel="stylesheet" />
+    </head>
+    <body>
+        <!-- Responsive navbar-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+            <div class="container px-5">
+                <img src='{% static "assets/navbar_logo.png" %}' width="30" height="30" alt="" >
+                <a class="navbar-brand mb-0 h1" href="{% url 'OCOP:OCOP' %}"><strong>OCOP</strong></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        {% if user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'mypage:mypage' %}">{{ user.get_username }}님</a></li>
+                        <li class = "nav-item"><a class = "nav-link" href = "{% url 'OCOP:logout' %}">로그아웃</a></li>
+                        <li class = "nav-item"><a class = "nav-link" href = "{% url 'point:carbonpage' %}">탄소포인트</a></li>
+                        <li class = "nav-item"><a class = "nav-link" href = "{% url 'point:greenpage' %}">그린포인트</a></li>
+                        <li class = "nav-item"><a class = "nav-link" href = "#">자동차탄소포인트</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            게시판
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="{% url 'pybo:pybo' %}">공지사항</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{% url 'pybo:pybo' %}">탄소포인트</a>
+                                <a class="dropdown-item" href="{% url 'pybo:pybo' %}">그린포인트</a>
+                                <a class="dropdown-item" href="{% url 'pybo:pybo' %}">자동차탄소포인트</a>
+
+                            </div>
+                        </li>
+                        {% else %}
+                        <li class = "nav-item"><a class = "nav-link" href = "{% url 'OCOP:login' %}">로그인</a></li>
+                        <li class = "nav-item"><a class = "nav-link" href = "{% url 'OCOP:signup' %}"><strong>회원가입</strong></a></li>
+                        <li class = "nav-item"><a class = "nav-link" href = "{% url 'point:carbonpage' %}">탄소포인트</a></li>
+                        <li class = "nav-item"><a class = "nav-link" href = "{% url 'point:greenpage' %}">그린포인트</a></li>
+                        <li class = "nav-item"><a class = "nav-link" href = "#">자동차탄소포인트</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            게시판
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="{% url 'OCOP:login' %}">공지사항</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{% url 'OCOP:login' %}">탄소포인트</a>
+                                <a class="dropdown-item" href="{% url 'OCOP:login' %}">그린포인트</a>
+                                <a class="dropdown-item" href="{% url 'OCOP:login' %}">자동차탄소포인트</a>
+                            </div>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!--jQuery JS-->
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <!-- Core theme JS-->
+        <script src='{% static "js/scripts.js" %}'></script>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+    <!-- 기본 템플릿 안에 삽입될 내용 Start -->
+    {% block content %}
+    {% endblock %}
+    <!-- 기본 템플릿 안에 삽입될 내용 End -->
+
+    <!--자바스크립트 start-->
+    {% block script %}
+    {% endblock %}
+    <!--자바스크립트 end-->
+
+    </body>
+</html>
