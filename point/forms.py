@@ -49,6 +49,11 @@ class AddGreenForm(forms.Form):
             'quantity': '수량',
         }
 
+class Savecarbonpoint(forms.ModelForm):
+    class Meta:
+        model = Userpoint
+        fields = ['user', 'carbonpoint', 'greenpoint', 'vehiclepoint', 'totalpoint', 'create_date']
+
 # class UserpointForm(forms.ModelForm):
 #     class Meta:
 #         model = Userpoint

@@ -23,4 +23,5 @@ urlpatterns = [
     path('addgreen/<int:Greenpoint_id>/', views.Addgreen, name='addgreen'),
     path('remove/<int:Carbonpoint_id>/',views.Remove, name='remove'),
     path('removegreen/<int:Greenpoint_id>/', views.Removegreen, name='removegreen'),
+    path('saveusercarbon/', views.Saveusercarbon, name='saveusercarbon'),
 ]

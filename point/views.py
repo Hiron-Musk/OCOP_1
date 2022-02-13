@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Carbonpoint, Greenpoint, Userpoint
-from .forms import CarbonForm, GreenForm, AddPointForm, AddGreenForm
+from .forms import CarbonForm, GreenForm, AddPointForm, AddGreenForm, Savecarbonpoint
 
 from django.views.decorators.http import require_POST
 from .cart import Cart, Cartgreen
@@ -219,19 +219,86 @@ def Removegreen(request, Greenpoint_id):
     cart.remove(point)
     return redirect('point:detailgreen')
 
-# def Createuserpoint(request):
-#     if request.method == 'POST':
-#         cart = Cart(request.POST)
-#         if form.is_valid():
-#             userpoint = cart.save(commit=False)
-#             userpoint.create_date = timezone.now()
-#             userpoint.save()
-#             return redirect('point:carbonlist')
-#     else:
-#         form = CarbonForm()
-#
-#     context = {'form': form}
-#     return render(request, 'point/carbonform.html', context)
+@require_POST
+def Saveusercarbon(request):
+    cart=Cart(request)
+    userpoint = Userpoint()
+    userpoint.user=request.user
+    print('user1', userpoint.user)
+    userpoint.carbonpoint=cart.get_total_point
+    # print('carbon1', userpoint.carbonpoint)
+    userpoint.create_date=timezone.now()
+    print('date1', userpoint.create_date)
+    userpoint.save()
+    print('userpoint1', userpoint.user, userpoint.carbonpoint, userpoint.create_date)
+    return render(request, 'point/carbon.html')
+
+
+    # cart = Cart(request)
+    # print('cart1', cart)
+    #
+    # form = Savecarbonpoint(request.POST)
+    # print('form1', form.user)
+    # if form.is_valid():
+    #     form = form.save(commit=False)
+    #     form.carbonpoint = cart.get_total_point
+    #     form.crate_date = timezone.now()
+    #     form.save()
+    #
+    #     print('form2', form)
+    #
+    #     return render('point/carbon.html')
+    # cart = Cart(request)
+    # if request.method == 'POST':
+    #     form = Saveusercarbon(request.POST)
+    #     print('form1', form)
+    #     if form.is_valid():
+    #         form = cart.save(commit=False)
+    #         print('form2', form)
+    #         form.user = User.username
+    #         print('user1',form.user )
+    #         form.carbonpoint = cart.get_total_point
+    #         print('cart1', cart)
+    #         form.create_date = timezone.now()
+    #         form.save()
+    #         return redirect('point:detail')
+    #     else:
+    #         form = cart()
+    #
+    # content = {'cart':cart, 'form':form}
+    # return render(request, 'point/carbon.html', content)
+
+    # if request.method == 'POST':
+    #     form = CarbonForm(request.POST)
+    #     if form.is_valid():
+    #         carbonpoint = form.save(commit=False)
+    #         carbonpoint.create_date = timezone.now()
+    #         carbonpoint.save()
+    #         return redirect('point:carbonlist')
+    # else:
+    #     form = CarbonForm()
+    #
+    # context = {'form': form}
+    # return render(request, 'point/carbonform.html', context)
+    # if request.method == 'POST':
+    #     print('save6')
+    #     form = Savecarbonpoint(request.POST)
+    #     if form.is_valid():
+    #         info = form.save()
+    #         print('save5', info)
+    #         info.user = User.username
+    #         print('save3', info.user)
+    #         print('save4', User.username)
+    #         info.carbonpoint = cart.get_total_point
+    #         info.create_date = timezone.now()
+    #         info.save()
+    #         return redirect('mypage:,mypage')
+    # else:
+    #     form = Savecarbonpoint()
+
+
+
+
 
 # def Addcarbon(request, Carbonpoint_id):
 #     """
