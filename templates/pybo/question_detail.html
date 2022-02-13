@@ -2,86 +2,96 @@
 
 {% block content %}
 <div class="container my-3">
-    <!-- 사용자오류 표시 -->
-    {% if messages %}
-    <div class="alert alert-danger my-3" role="alert">
-    {% for message in messages %}
-        <strong>{{ message.tags }}</strong>
-        <ul><li>{{ message.message }}</li></ul>
-    {% endfor %}
-    </div>
-    {% endif %}
-    <h2 class="border-bottom py-2">{{ question.subject }}</h2>
     <div class="row my-3">
-        <div class="col-1"> <!-- 추천영역 -->
-            <div class="bg-light text-center p-3 border font-weight-bolder mb-1">{{question.voter.count}}</div>
-            <a href="#" data-uri="{% url 'pybo:vote_question' question.id  %}"
-               class="recommend btn btn-sm btn-secondary btn-block my-1">추천</a>
+        <!-- 사용자오류 표시 -->
+        {% if messages %}
+        <div class="alert alert-danger my-3" role="alert">
+        {% for message in messages %}
+            <strong>{{ message.tags }}</strong>
+            <ul><li>{{ message.message }}</li></ul>
+        {% endfor %}
         </div>
+        {% endif %}
+        <h2 class="border-bottom my-3 py-2">{{ question.subject }}</h2>
         <div class="col-11"> <!-- 질문영역 -->
-        <!-- 기존내용 -->
-            <div class="card">
+            <!-- 기존내용 -->
+            <div class="card" style="height: 12rem;">
                 <div class="card-body">
                     <div class="card-text" style="white-space: pre-line;">{{ question.content }}</div>
+    <!--                        <div class="col-sm-2">&lt;!&ndash;수정일자&ndash;&gt;-->
                     <div class="d-flex justify-content-end">
-                        {% if question.modify_date %}
-                        <div class="badge badge-light p-2 text-left mx-3">
-                            <div class="mb-2">수정일자</div>
-                            <div>{{ question.modify_date }}</div>
+
+                        <div class="row-cols-2 justify-content-end">
+                            {% if question.modify_date %}
+                            <div class="badge bg-light p-2 text-dark text-left mx-1 mb-1 float-right">
+                                <div class="mb-2">수정일자</div>
+                                <div>{{ question.modify_date }}</div>
+                            </div>
+                            <div class="badge bg-light text-dark text-left mx-1 mb-1 float-right">
+                                <div class="mb-2">{{ question.author.username }}</div>
+                                <div>{{ question.create_date }}</div>
+                            </div>
+                            {% endif %}
                         </div>
-                        {% endif %}
-                        <div class="badge badge-light p-2 text-left">
-                            <div class="mb-2">{{ question.author.username }}</div>
-                            <div>{{ question.create_date }}</div>
-                        </div>
+
                     </div>
                     {% if request.user == question.author %}
-                        <div class="my-3">
-                            <a href="{% url 'pybo:question_modify' question.id  %}"
-                               class="btn btn-sm btn-outline-secondary">수정</a>
-                            <a href="#" class="delete btn btn-sm btn-outline-secondary"
-                                data-uri="{% url 'pybo:question_delete' question.id  %}">삭제</a>
-                        </div>
+                    <div class="my-3">
+                        <a href="{% url 'pybo:question_modify' question.id  %}"
+                           class="btn btn-sm btn-outline-secondary">수정</a>
+                        <a href="#" class="delete btn btn-sm btn-outline-secondary"
+                            data-uri="{% url 'pybo:question_delete' question.id  %}">삭제</a>
+                    </div>
                     {% endif %}
                 </div>
             </div>
         </div>
-    </div>
-    <h5 class="border-bottom my-3 py-2">{{question.answer_set.count}}개의 답변이 있습니다.</h5>
+            <div class="col-1"> <!-- 추천영역 -->
+                <div class="bg-light text-center p-3 border font-weight-bolder mb-1">{{question.voter.count}}</div>
+                <a href="#" data-uri="{% url 'pybo:vote_question' question.id  %}"
+                   class="recommend btn btn-sm btn-secondary btn-block my-1">추천</a>
+            </div>
+        </div>
+
+
+    <h3 class="border-bottom my-3 py-2">답변 : {{question.answer_set.count}}개</h3>
     {% for answer in question.answer_set.all %}
     <div class="row my-3">
-    <div class="col-1">  <!-- 추천영역 -->
-        <div class="bg-light text-center p-3 border font-weight-bolder mb-1">{{answer.voter.count}}</div>
-        <a href="#" data-uri="{% url 'pybo:vote_answer' answer.id  %}"
-            class="recommend btn btn-sm btn-secondary btn-block my-1">추천</a>
-    </div>
-    <div class="col-11">  <!-- 답변영역 -->
-        <div class="card">
-            <div class="card-body">
-                <div class="card-text" style="white-space: pre-line;">{{ answer.content }}</div>
-                <div class="d-flex justify-content-end">
-                    {% if answer.modify_date %}
-                    <div class="badge badge-light p-2 text-left mx-3">
-                        <div class="mb-2">수정일자</div>
-                        <div>{{ answer.modify_date }}</div>
+
+        <div class="col-11">  <!-- 답변영역 -->
+            <div class="card" style="height: 12rem;">
+                <div class="card-body">
+                    <div class="card-text" style="white-space: pre-line;">{{ answer.content }}</div>
+                    <div class="d-flex justify-content-end">
+                        {% if answer.modify_date %}
+                        <div class="row-cols-2 justify-content-end">
+                            <div class="badge bg-light text-dark text-left mx-1 mb-1 float-right">
+                                <div class="mb-2">수정일자</div>
+                                <div>{{ answer.modify_date }}</div>
+                            </div>
+                            <div class="badge bg-light text-dark text-left mx-1 mb-1 float-right">
+                                <div class="mb-2">{{ answer.author.username }}</div>
+                                <div>{{ answer.create_date }}</div>
+                            </div>
+                        </div>
+                        {% endif %}
                     </div>
-                    {% endif %}
-                    <div class="badge badge-light p-2 text-left">
-                        <div class="mb-2">{{ answer.author.username }}</div>
-                        <div>{{ answer.create_date }}</div>
-                    </div>
-                </div>
-                {% if request.user == answer.author %}
-                    <div class="my-3">
-                        <a href="{% url 'pybo:answer_modify' answer.id  %}"
-                           class="btn btn-sm btn-outline-secondary">수정</a>
-                        <a href="#" class="delete btn btn-sm btn-outline-secondary "
-                            data-uri="{% url 'pybo:answer_delete' answer.id  %}">삭제</a>
-                    </div>
-                {% endif %}
+                        {% if request.user == answer.author %}
+                        <div class="my-3">
+                            <a href="{% url 'pybo:answer_modify' answer.id  %}"
+                               class="btn btn-sm btn-outline-secondary">수정</a>
+                            <a href="#" class="delete btn btn-sm btn-outline-secondary "
+                                data-uri="{% url 'pybo:answer_delete' answer.id  %}">삭제</a>
+                        </div>
+                        {% endif %}
                 </div>
             </div>
         </div>
+            <div class="col-1">  <!-- 추천영역 -->
+                <div class="bg-light text-center p-3 border font-weight-bolder mb-1">{{answer.voter.count}}</div>
+                <a href="#" data-uri="{% url 'pybo:vote_answer' answer.id  %}"
+                    class="recommend btn btn-sm btn-secondary btn-block my-1">추천</a>
+            </div>
     </div>
     {% endfor %}
     <form action="{% url 'pybo:answer_create' question.id %}" method="post" class="my-3">
@@ -99,7 +109,7 @@
         <div class="form-group">
             <textarea name="content" id="content" class="form-control" rows="10"></textarea>
         </div>
-        <input type="submit" value="답변등록" class="btn btn-primary">
+        <input type="submit" value="답변등록" class="btn btn-primary bg-success">
     </form>
 </div>
 {% endblock %}

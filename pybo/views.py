@@ -98,7 +98,7 @@ def question_modify(request, question_id):
             return redirect('pybo:detail', question_id=question.id)
     else:
         form = QuestionForm(instance=question)
-    context = {'form': form}
+    context = {'form': form, 'category': question.category}
     return render(request, 'pybo/question_form.html', context)
 
 @login_required(login_url='common:login')
@@ -111,7 +111,7 @@ def question_delete(request, question_id):
         messages.error(request, '삭제권한이 없습니다')
         return redirect('pybo:detail', question_id=question.id)
     question.delete()
-    return redirect('pybo:index')
+    return redirect('pybo:pybo')
 
 @login_required(login_url='common:login')
 def answer_create(request, question_id):
