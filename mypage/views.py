@@ -17,20 +17,31 @@ def mypage(request):
     mypointcarbon_list = Mypointcarbon.objects.all()
     mypointgreen_list = Mypointgreen.objects.all()
     myuserpoint_list = Myuserpoint.objects.all()
-    context = {'mypointcarbon_list': mypointcarbon_list, 'mypointgreen_list': mypointgreen_list, 'myuserpoint_list': myuserpoint_list}
+
+    qs_carbonpoint = Myuserpoint.objects.aggregate(Sum('carbonpoint'))
+    sumcarbonpoint = qs_carbonpoint['carbonpoint__sum']
+
+    qs_greenpoint = Myuserpoint.objects.aggregate(Sum('greenpoint'))
+    sumgreenpoint = qs_greenpoint['greenpoint__sum']
+
+    qs_vehiclepoint = Myuserpoint.objects.aggregate(Sum('vehiclepoint'))
+    sumvehiclepoint = qs_vehiclepoint['vehiclepoint__sum']
+    print(qs_carbonpoint)
+    print(sumcarbonpoint)
+
+    context = {'mypointcarbon_list': mypointcarbon_list, 'mypointgreen_list': mypointgreen_list, 'myuserpoint_list': myuserpoint_list,
+               'sumcarbonpoint': sumcarbonpoint, 'sumgreenpoint':sumgreenpoint, 'sumvehiclepoint': sumvehiclepoint}
     return render(request, 'mypage/mypage.html', context)
 
 def mypage_chart(request):
     data = []
-    queryset = Myuserpoint.objects.values('carbonpoint', 'greenpoint','vehiclepoint')
-    print(queryset)
+    queryset = Myuserpoint.objects.all().aggregate(carbonpoint=Sum('carbonpoint'), greenpoint=Sum('greenpoint'), vehiclepoint=Sum('vehiclepoint'))
 
-    for entry in queryset:
-        data.append(entry['carbonpoint'])
-        data.append(entry['greenpoint'])
-        data.append(entry['vehiclepoint'])
-        print(data)
+    values = queryset.values()
+    valuelist = list(values)
 
-    return JsonResponse(data={
-        'data':data
-    })
+    for entry in valuelist:
+        data.append(entry)
+        # print(entry)
+
+    return JsonResponse(data={'data':data})

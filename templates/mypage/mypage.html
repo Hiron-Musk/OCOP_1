@@ -79,20 +79,18 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {% for Myuserpoint in myuserpoint_list %}
                                         <tr>
-                                            <td>탄소포인트</td>
-                                            <td>{{ Myuserpoint.carbonpoint }}</td>
+                                            <th>탄소포인트</th>
+                                            <th>{{ sumcarbonpoint }}</th>
                                         </tr>
                                         <tr>
-                                            <td>그린포인트</td>
-                                            <td>{{ Myuserpoint.greenpoint }}</td>
+                                            <th>그린포인트</th>
+                                            <th>{{ sumgreenpoint }}</th>
                                         </tr>
                                         <tr>
-                                            <td>자동차탄소포인트</td>
-                                            <td>{{ Myuserpoint.vehiclepoint }}</td>
+                                            <th>자동차탄소포인트</th>
+                                            <th>{{ sumvehiclepoint }}</th>
                                         </tr>
-                                        {% endfor %}
 
                                     </tbody>
                                 </table>
@@ -102,6 +100,7 @@
                             <script type='text/javascript'>
                                 $(document).ready(function() {
                                     $('#table_user').DataTable({
+                                        order:[],
                                         searching: false,
                                         info: false,
                                         paging: false,

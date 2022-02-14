@@ -231,7 +231,7 @@ def Saveusercarbon(request):
     print('date1', userpoint.create_date)
     userpoint.save()
     print('userpoint1', userpoint.user, userpoint.carbonpoint, userpoint.create_date)
-    return render(request, 'point/carbon.html')
+    return render(request, 'OCOP/main_page.html')
 
 @require_POST
 def Saveusergreen(request):
@@ -246,7 +246,7 @@ def Saveusergreen(request):
     print('date1', userpoint.create_date)
     userpoint.save()
     print('userpoint1', userpoint.user, userpoint.carbonpoint, userpoint.create_date)
-    return render(request, 'point/green.html')
+    return render(request, 'OCOP/main_page.html')
 
 
     # cart = Cart(request)
