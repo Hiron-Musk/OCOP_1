@@ -6,8 +6,8 @@
             <h5 class="my-3 border-bottom pb-2" align="center">탄소포인트</h5>
     </div>
     <div class="row">
-        <div class="col-5">
-            <div class="green-list">
+        <div class="col-md-5" style="float: none; margin:0 auto;">
+            <div class="wrapper green-list">
                 {% for Carbonpoint in carbon_list %}
                 <td>{{ Carbonpoint.pointtype }}<td>
                 <td>{{ Carbonpoint.cpoint }}P</td>
@@ -20,14 +20,17 @@
                 {% endfor %}
             </div>
         </div>
-        <div class="col-5" style="float: none; margin:100 auto;">
+        <div class="col-md-5" style="float: none; margin:100 auto;">
             <td>탄소포인트제</td><br>
             <input type=""><td> P</td>
 <!--            <td><a href = "https://cpoint.or.kr/user/info/calPoint.do" class ="btn btn-success btn-sm">조회하기</inputa></td>-->
             <td><input type="button" class="ben btn-success ben-sm" value="조회하기" onClick="window.open('https://cpoint.or.kr/user/info/calPoint.do')"></td>
             <P></P>
         </div>
-        <a href = "{% url 'point:detail' %}" class ='btn btn-sm btn-outline-secondary'>포인트바구니바로가기</a>
+    </div>
+    <div class="col-md-5" style="float: right; margin:">
+        <input type="button" class="ben btn-btn-outline-secondary ben-sm" value="포인트바구니 바로가기" onClick="location.href='{% url 'point:detail' %}'"></td>
+<!--        <a href = "" class ='btn btn-sm btn-outline-secondary' style="float:right;">포인트바구니바로가기</a>-->
     </div>
 </div>
 </div>
