@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<div>
+<div class="container my-3">
     <div class="green-title">
             <h5 class="my-3 border-bottom pb-2" align="center">그린포인트</h5>
     </div>
@@ -14,11 +14,11 @@
             <form action="{% url 'point:addgreen' Greenpoint.id %}" method="post">
                 {{ gaddcart }}
                 {% csrf_token %}
-                <input type="submit" class="ben btn-primary ben-sm" value="포인트 등록하기">
+                <input type="submit" class="ben btn-success ben-sm" value="포인트 등록하기">
             </form>
             <p></p>
             {% endfor %}
-            <a href = "{% url 'point:detailgreen' %}" class = 'btn btn-sm btn-outline-secondary'>포인트바구니바로가기</a>
+            <a href = "{% url 'point:detailgreen' %}" class = 'btn btn-sm btn-outline-secondary '>포인트바구니바로가기</a>
         </div>
     </div>
 </div>

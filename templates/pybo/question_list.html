@@ -80,7 +80,9 @@
 <!--                        {% endif %}-->
                         </tbody>
                     </table>
+                    {% if category.name != 'notice' %}
                     <a href="{% url 'pybo:question_create' category.name %}" class="btn btn-success">질문 등록하기</a>
+                    {% endif %}
                 </div>
             </div>
         </div>

@@ -30,10 +30,10 @@ class Greenpoint(models.Model):
 
 class Userpoint(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    carbonpoint = models.IntegerField(blank=True, null=True)
-    greenpoint = models.IntegerField(blank=True, null=True)
-    vehiclepoint = models.IntegerField(blank=True, null=True)
-    totalpoint = models.IntegerField(blank=True, null=True)
+    carbonpoint = models.IntegerField(blank=True, default=0)
+    greenpoint = models.IntegerField(blank=True, default=0)
+    carpoint = models.IntegerField(blank=True, default=0)
+    totalpoint = models.IntegerField(blank=True, default=0)
     # carbonpoint = models.ForeignKey(Carbonpoint, on_delete=models.CASCADE)
     # active = models.BooleanField(default=True)
     # quantity = models.PositiveSmallIntegerField(null=True, default=1,
@@ -73,10 +73,16 @@ class Userpoint(models.Model):
 #     greenpoint =
 #     create_date = models.DateTimeField(auto_now_add=True)
 #
-# class Vehicle(models.Model):
-#     user =
-#     stdmileage =
-#     confmileage =
-#     rdtmileage =
-#     rdtrate =
-#     create_date = models.DateTimeField(auto_now_add=True)
+class Carpoint(models.Model):
+    user =models.ForeignKey(User,on_delete=models.CASCADE)
+    carpoint=models.IntegerField()
+    create_date = models.DateTimeField()
+    modify_date = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        db_table = 'Carpoint'
+        verbose_name = '자동차탄소포인트'
+
+    #수정
+    def __str__(self):
+        return self.cpoint

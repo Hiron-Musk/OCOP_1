@@ -24,6 +24,11 @@ urlpatterns = [
     path('remove/<int:Carbonpoint_id>/',views.Remove, name='remove'),
     # path('removecarbon/', views.Removecarbon, name='removecarbon'),
     path('removegreen/<int:Greenpoint_id>/', views.Removegreen, name='removegreen'),
+
+    path('car/', views.Carpage, name='carpage'),
+    path('calculation/',views.Carcalculation,name='calculation'),
+    # path('calculation/',views.Carsave,name='carsave'),
+
     path('saveusercarbon/', views.Saveusercarbon, name='saveusercarbon'),
     path('usercarbon/', views.Usercarbon, name='usercarbon'),
     path('saveusergreen/', views.Saveusergreen, name='saveusergreen'),
