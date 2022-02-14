@@ -6,6 +6,8 @@
 {% endblock %}
 
 {% block content %}
+<form action = "{% url 'point:saveusergreen' %}" method="post">
+    {% csrf_token %}
     <table class="table table-striped">
         <tbody>
         {% for gitem in cart %}
@@ -33,9 +35,9 @@
         </tr>
         </tbody>
     </table>
-
+<input type="submit" class="ben btn-primary ben-sm" value="저장하기기"></form>
     <p class="text-right">
         <a href="{% url 'point:greenpage' %}" class="btn btn-secondary">포인트 추가하기</a>
-        <a href="#" class="btn btn-primary">저장하기</a>
+
     </p>
 {% endblock %}

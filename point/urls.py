@@ -28,4 +28,6 @@ urlpatterns = [
     path('calculation/',views.Carcalculation,name='calculation'),
     # path('calculation/',views.Carsave,name='carsave'),
 
+    path('saveusercarbon/', views.Saveusercarbon, name='saveusercarbon'),
+    path('saveusergreen/', views.Saveusergreen, name='saveusergreen'),
 ]

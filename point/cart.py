@@ -82,8 +82,9 @@ class Cart(object):
         self.session[settings.CART_ID] = {}
         self.session.modified = True
 
+    @property
     def get_total_point(self):
-        return sum(item['cpoint']*item['quantity']for item in self.cart.values())
+        return sum(int(item['cpoint'])*int(item['quantity'])for item in self.cart.values())
 
 class Cartgreen(object):
     def __init__(self, request):
@@ -170,5 +171,6 @@ class Cartgreen(object):
         self.session[settings.CART_IDG] = {}
         self.session.modified = True
 
+    @property
     def get_total_gpoint(self):
-        return sum(gitem['gpoint']*gitem['quantity']for gitem in self.cart.values())
+        return sum(int(gitem['gpoint'])*int(gitem['quantity'])for gitem in self.cart.values())
