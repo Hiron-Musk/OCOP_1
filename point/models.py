@@ -32,7 +32,7 @@ class Userpoint(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     carbonpoint = models.IntegerField(blank=True, default=0)
     greenpoint = models.IntegerField(blank=True, default=0)
-    vehiclepoint = models.IntegerField(blank=True, default=0)
+    carpoint = models.IntegerField(blank=True, default=0)
     totalpoint = models.IntegerField(blank=True, default=0)
     # carbonpoint = models.ForeignKey(Carbonpoint, on_delete=models.CASCADE)
     # active = models.BooleanField(default=True)

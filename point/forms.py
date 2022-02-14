@@ -52,7 +52,7 @@ class AddGreenForm(forms.Form):
 class Savecarbonpoint(forms.ModelForm):
     class Meta:
         model = Userpoint
-        fields = ['user', 'carbonpoint', 'greenpoint', 'vehiclepoint', 'totalpoint', 'create_date']
+        fields = ['user', 'carbonpoint', 'greenpoint', 'carpoint', 'totalpoint', 'create_date']
 
 # class Formcarbonpoint(forms.Form):
 #     carbon = forms.IntegerField()
