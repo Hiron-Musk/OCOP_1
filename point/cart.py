@@ -68,6 +68,21 @@ class Cart(object):
 
         self.save()
 
+
+    # def addcarbon(self, cpoint=1, is_update=False):
+    #     carbonp=str(cpoint)
+    #     print('add', carbonp)
+    #     if carbonp not in self.cart:
+    #         self.cart[carbonp]={'cpoint':str(cpoint), 'quantity':1}
+    #
+    #     if is_update:
+    #         self.cart[carbonp]['quantity'] = cpoint
+    #         print('carbon2',carbonp)
+    #     else:
+    #         self.cart[carbonp]['quantity'] += cpoint
+    #     print('add2', carbonp)
+    #     self.save()
+
     def save(self):
         self.session[settings.CART_ID] = self.cart
         self.session.modified = True
@@ -85,6 +100,7 @@ class Cart(object):
     @property
     def get_total_point(self):
         return sum(int(item['cpoint'])*int(item['quantity'])for item in self.cart.values())
+
 
 class Cartgreen(object):
     def __init__(self, request):

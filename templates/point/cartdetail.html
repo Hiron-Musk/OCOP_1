@@ -6,28 +6,33 @@
 {% endblock %}
 
 {% block content %}
-<form action = "{% url 'point:saveusercarbon' %}" method="post">
-    {% csrf_token %}
-    <table class="table table-striped">
-        <tbody>
+<table class="table table-striped">
+    <tbody>
+        <div>탄소중립 실천 포인트</div>
+        <div>
         {% for item in cart %}
             {% with Carbonpoint=item.carbonpoint %}
             <tr>
                 <td>{{ Carbonpoint.pointtype }}</td>
-                <td>
-                    <form action="{% url 'point:add' Carbonpoint.id %}" method="post">
-                        {{ item.quantity }}
-                        {{ item.is_update }}
-                        <input type="submit" class="btn btn-primary" value="수량 조절">
-                        {% csrf_token %}
-                    </form>
-                </td>
+                <form action ="{% url 'point:add' Carbonpoint.id %}" method="post">
+                    {{ item.quantity_form.quantity }}
+                    {{ item.quantity_form.is_update }}
+                    <input type="submit" class="btn btn-primary" value="수정하기">
+                    {% csrf_token %}
+                </form>
                 <td><a href="{% url 'point:remove' Carbonpoint.id %}">삭제하기</a></td>
                 <td class="num">{{ item.cpoint }}P</td>
                 <td class="num">{{ item.total_cpoint }}P</td>
             </tr>
             {% endwith %}
         {% endfor %}
+        </div>
+    </tbody>
+</table>
+<form action = "{% url 'point:saveusercarbon' %}" method="post">
+    {% csrf_token %}
+    <table class="table table-striped">
+        <tbody>
         <tr class="total">
             <td>Total</td>
             <td colspan="4"></td>
@@ -35,7 +40,7 @@
         </tr>
         </tbody>
     </table>
-<input type="submit" class="ben btn-primary ben-sm" value="저장하기기"></form>
+<input type="submit" class="ben btn-primary ben-sm" value="저장하기"></form>
         <p class="text-right">
         <a href="{% url 'point:carbonpage' %}" class="btn btn-secondary">포인트 추가하기</a>
 <!--        <a href="{% url 'point:saveusercarbon' %}" class="btn btn-secondary">저장하기</a>-->

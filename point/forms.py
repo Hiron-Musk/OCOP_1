@@ -32,7 +32,7 @@ class AddPointForm(forms.Form):
     is_update = forms.BooleanField(required=False, initial=False, widget=forms.HiddenInput)
 
     class Meta:
-        fields = ['quantiy']
+        fields = ['quantity']
 
         labels = {
             'quantity': '수량',
@@ -43,7 +43,7 @@ class AddGreenForm(forms.Form):
     is_update = forms.BooleanField(required=False, initial=False, widget=forms.HiddenInput)
 
     class Meta:
-        fields = ['quantiy']
+        fields = ['quantity']
 
         labels = {
             'quantity': '수량',
@@ -54,9 +54,19 @@ class Savecarbonpoint(forms.ModelForm):
         model = Userpoint
         fields = ['user', 'carbonpoint', 'greenpoint', 'vehiclepoint', 'totalpoint', 'create_date']
 
-# class Formcarbonpoint(forms.Form):
-#     carbon = forms.IntegerField()
+class Formcarbonpoint(forms.Form):
+    cpoint = forms.IntegerField(label='포인트량')
+    is_update = forms.BooleanField(required=False, initial=False, widget=forms.HiddenInput)
 
+# class Usermodify(forms.ModelForm):
+#     class Meta:
+#         model = Userpoint
+#         fields = ['user', 'carbonpoint']
+#
+#         labels = {
+#             'user': '이용자',
+#             'carbonpoint': '포인트량',
+#         }
 
 # class UserpointForm(forms.ModelForm):
 #     class Meta:

@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Carbonpoint, Greenpoint, Userpoint
-from .forms import CarbonForm, GreenForm, AddPointForm, AddGreenForm, Savecarbonpoint
+from .forms import CarbonForm, GreenForm, AddPointForm, AddGreenForm, Savecarbonpoint, Formcarbonpoint
 
 from django.views.decorators.http import require_POST
 from .cart import Cart, Cartgreen
@@ -10,7 +10,7 @@ from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.models import User
-
+from django.core.exceptions import BadRequest
 from django.core.exceptions import ObjectDoesNotExist
 
 # Create your views here.
@@ -137,7 +137,8 @@ def Carbonpage(request):
     """
     carbon_list = Carbonpoint.objects.order_by('create_date')
     addcart = AddPointForm(initial={'quantity': 1})
-    context = {'carbon_list': carbon_list, 'addcart':addcart}
+    carboncart = Formcarbonpoint()
+    context = {'carbon_list': carbon_list, 'addcart':addcart, 'carboncart':carboncart}
 
     return render(request, 'point/carbon.html', context)
 
@@ -154,11 +155,18 @@ def Detail(request):
     # if HttpResponse(None):
     #     return redirect('point:carbonpage')
     # else:
+    #
+    # addcarbon = Formcarbonpoint(initial={'carbon':['carbon'], 'is_update':True})
     cart = Cart(request)
+    # form = Formcarbonpoint(instance=cart.addcarbon)
         # for i in range(0, cart.cartcount(),):
     for point in cart:
-        point = AddPointForm(initial={'quantity':point['quantity'], 'is_update':True})
+        point['quantity_form'] = AddPointForm(initial={'quantity':point['quantity'], 'is_update':True})
         # print(cart.cartcount())
+
+    # for cpoint in cart:
+    #     cpoint = Formcarbonpoint(initial={'cpoint':cpoint['cpoint'], 'is_update':True})
+    #     print('cpoint', cpoint)
         context = {'point': point, 'cart': cart}
         return render(request, 'point/cartdetail.html', context)
 
@@ -170,7 +178,7 @@ def Detailgreen(request):
     # for i in range(0, cart.cartcount(),):
     for point in cart:
         print('Detailgreen2')
-        point = AddGreenForm(initial={'quantity':point['quantity'], 'is_update':True})
+        point['quantity_form']  = AddGreenForm(initial={'quantity':point['quantity'], 'is_update':True})
         print('Detailgreen3')
         # print(cart.cartcount())
         context = {'point': point, 'cart': cart}
@@ -185,7 +193,6 @@ def Add(request, Carbonpoint_id):
     # 클라이언트 -> 서버로 데이터를 전달
     # 유효성검사, injection 전처리
     form = AddPointForm(request.POST)
-
     if form.is_valid():
         cd = form.cleaned_data
         cart.add(carbonpoint=carbonpoint, quantity=cd['quantity'], is_update=cd['is_update'])
@@ -200,7 +207,6 @@ def Addgreen(request, Greenpoint_id):
     # 클라이언트 -> 서버로 데이터를 전달
     # 유효성검사, injection 전처리
     form = AddGreenForm(request.POST)
-
     if form.is_valid():
         cd = form.cleaned_data
         cart.add(greenpoint=greenpoint, quantity=cd['quantity'], is_update=cd['is_update'])
@@ -211,21 +217,27 @@ def Remove(request, Carbonpoint_id):
     cart = Cart(request)
     point = get_object_or_404(Carbonpoint, id=Carbonpoint_id)
     cart.remove(point)
-    return redirect('point:detail')
+    return redirect('point:carbonpage')
 
 def Removegreen(request, Greenpoint_id):
     cart = Cartgreen(request)
     point = get_object_or_404(Greenpoint, id=Greenpoint_id)
     cart.remove(point)
-    return redirect('point:detailgreen')
+    return redirect('point:greenpage')
 
 @require_POST
 def Saveusercarbon(request):
-    cart=Cart(request)
+    cart = Cart(request)
+    # form = Formcarbonpoint(request.POST)
     userpoint = Userpoint()
+    # if form.is_valid():
+    #     userpoint = form.save(commit=False)
+    #     userpoint.carbonpoint = cart.get_total_point
+    #
+    #         form.save()
     userpoint.user=request.user
     print('user1', userpoint.user)
-    userpoint.carbonpoint=cart.get_total_point
+    userpoint.carbonpoint = cart.get_total_point
     # print('carbon1', userpoint.carbonpoint)
     userpoint.create_date=timezone.now()
     print('date1', userpoint.create_date)
@@ -248,7 +260,39 @@ def Saveusergreen(request):
     print('userpoint1', userpoint.user, userpoint.carbonpoint, userpoint.create_date)
     return render(request, 'point/green.html')
 
+@require_POST
+def Usercarbon(request):
+    form = Formcarbonpoint(request.POST)
 
+    userpoint = Userpoint()
+    print('form1', form)
+    userpoint.user = request.user
+    print('user1', userpoint.user)
+    userpoint.carbonpoint = form.cleaned_data['cpoint']
+    print('cpoint',userpoint.carbonpoint)
+    # print('carbon1', userpoint.carbonpoint)
+    # userpoint.totalpoint = userpoint.carbonpoint*userpoint.greenpoint
+    userpoint.create_date = timezone.now()
+    print('date1', userpoint.create_date)
+    userpoint.save()
+    print('userpoint1', userpoint.user, userpoint.carbonpoint, userpoint.create_date)
+    context = {'userpoint':userpoint}
+    return render(request, 'point/carbon.html', context)
+
+# def Removecarbon(request):
+#     carbon = get_object_or_404(Userpoint)
+#     carbon.delete()
+#     return render(request, 'point/carbon.html')
+
+
+
+    # if request.method == 'POST':
+    #     form = CarbonForm(request.POST, instance = carbon)
+    #     if form.is_valid():
+    #         carbonpoint = form.save(commit=False)
+    #         carbonpoint.modify_date = timezone.now()
+    #         carbonpoint.save()
+    #         return redirect('point:carbonlist')
     # cart = Cart(request)
     # print('cart1', cart)
     #
