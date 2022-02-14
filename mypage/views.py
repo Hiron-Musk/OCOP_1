@@ -1,18 +1,41 @@
 import base64
 import io
 import urllib.parse
-
-from django.shortcuts import render, get_object_or_404, redirect
 import matplotlib.pyplot as plt
+import json
 
-# Create your views here.
+from django.shortcuts import render, redirect, get_object_or_404
+from django.utils import timezone
+from django.core.serializers.json import DjangoJSONEncoder
+from django.http import JsonResponse
+from datetime import datetime
+from .models import Mypointcarbon, Mypointgreen
+    # Userpoint
+from django.db.models import Sum
+
 
 def mypage(request):
-    plt.plot([10, 20, 30, 40, 50, 60, 70], [1, 4, 9, 16, 20, 25, 40], 'rs--')
-    fig = plt.gcf()
-    buf = io.BytesIO()
-    fig.savefig(buf, format='png')
-    buf.seek(0)
-    string = base64.b64encode(buf.read())
-    uri = urllib.parse.quote(string)
-    return render(request, 'mypage/mypage.html', {'data':uri})
+    mypointcarbon_list = Mypointcarbon.objects.all()
+    mypointgreen_list = Mypointgreen.objects.all()
+    # myuserpoint_list = Userpoint.objects.all()
+    context = {'mypointcarbon_list': mypointcarbon_list, 'mypointgreen_list': mypointgreen_list, }
+    # 'myuserpoint_list': myuserpoint_list,
+    return render(request, 'mypage/mypage.html', context)
+
+def mypage_chart(request):
+
+    # point_list = list(Userpoint.objects.all())
+    # print(point_list)
+
+    labels = []
+    data = []
+    queryset = Mypointcarbon.objects.values('pointtype').annotate(cpoint=Sum('cpoint')).order_by('-cpoint')
+    for entry in queryset:
+        labels.append(entry['pointtype'])
+        data.append(entry['cpoint'])
+
+    return JsonResponse(data={
+        # 'point_list': point_list,
+        'labels':labels,
+        'data':data,
+    })

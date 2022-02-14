@@ -1,12 +1,12 @@
+import django
+django.setup()
+
 from django.db import models
+from django.apps import apps
+# from point.models import Carbonpoint
 
 # Create your models here.
 
-# class Score(models.Model):
-#     name = models.CharField(max_length=20)
-#     get_score = models.IntegerField()
-#
-# class Rank(models.Model):
-#     ranking = models.IntegerField()
-#     score = models.OneToOneField(Score, on_delete=None, primary_key=True)
-
+Mypointcarbon = apps.get_model('point', 'Carbonpoint')
+Mypointgreen = apps.get_model('point','Greenpoint')
+# Userpoint = apps.get_model('point', 'Userpoint')

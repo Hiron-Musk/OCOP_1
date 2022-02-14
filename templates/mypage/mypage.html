@@ -7,23 +7,62 @@
         </div>
     </div>
     <div class ="row">
-        <div class="col-xl-6 col-lg-4">
-             <div id="wrapper cart">
-                <div id="content-wrapper cart" class="d-flex flex-column">
+        <div class="col-xl-5 col-lg-4">
+             <div id="wrapper chart">
+                <div id="content-wrapper chart" class="d-flex flex-column">
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">My Chart</h6>
                         </div>
                         <div class = "card-body">
-                            <img src = "data:image/png;base64,{{ data }}" alt="" height="100%", width="100%">
+<!--                        <img src = "data:image/png;base64,{{ data }}" alt="" height="100%", width="100%">-->
+                            <canvas id="mypage-chart" data-url="{% url 'mypage:mypage-chart' %}"></canvas>
                         </div>
+                        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+                        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+                        <script>
+                            $(function () {
+                              var $mypageChart= $("#mypage-chart");
+                              $.ajax({
+                                url: $mypageChart.data("url"),
+                                success: function (data) {
+
+                                  var ctx = $mypageChart[0].getContext("2d");
+
+                                  new Chart(ctx, {
+                                    type: 'bar',
+                                    data: {
+                                      labels: ['탄소포인트', '그린포인트', '자동차탄소포인트'],
+                                      datasets: [{
+                                        label: 'Carbon',
+                                        backgroundColor: '#6fae3f',
+                                        data: data.data
+                                      }]
+                                    },
+                                    options: {
+                                      responsive: true,
+                                      legend: {
+                                        position: 'top',
+                                      },
+                                      title: {
+                                        display: true,
+                                        text: 'My Point Chart'
+                                      }
+                                    }
+                                  });
+
+                                }
+                              });
+
+                            });
+                            </script>
                     </div>
                 </div>
              </div>
 
         </div>
 
-        <div class="col-xl-6 col-lg-7">
+        <div class="col-xl-7 col-lg-7">
             <div id="wrapper">
                 <div id="content-wrapper" class="d-flex flex-column">
                     <div class="card shadow mb-4">
@@ -31,46 +70,43 @@
                             <h6 class="m-0 font-weight-bold text-primary">My Point</h6>
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive text-center">
-                                <table id = "table_user" class="table table-bordered" width="100%" height="100%" cellspacing="0" cellpadding="0" align="center">
+                            <div class="text-center table-responsive">
+                                <table id="table_user" class="cell-border" style="width: 100%">
                                     <thead>
                                         <tr>
-                                            <th>포인트</th>
+                                            <th>타입</th>
                                             <th>리스트</th>
+                                            <th>포인트</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {% for Mypointcarbon in mypointcarbon_list %}
                                         <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
+                                            <td>탄소포인트</td>
+                                            <td>{{ Mypointcarbon.pointtype }}</td>
+                                            <td>{{ Mypointcarbon.cpoint }}</td>
+<!--                                            <td>{{ mypoint_carbon.cpoint }}</td>-->
                                         </tr>
-                                        <tr>
-                                            <td>Garrett Winters</td>
-                                            <td>Accountant</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ashton Cox</td>
-                                            <td>Junior Technical Author</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cedric Kelly</td>
-                                            <td>Senior Javascript Developer</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Airi Satou</td>
-                                            <td>Accountant</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Brielle Williamson</td>
-                                            <td>Integration Specialist</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Herrod Chandler</td>
-                                            <td>Sales Assistant</td>
-                                        </tr>
+                                        {% endfor %}
+
                                     </tbody>
                                 </table>
                             </div>
+                            <!--datatable-->
+                            <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+                            <script type='text/javascript'>
+                                $(document).ready(function() {
+                                    $('#table_user').DataTable({
+                                        searching: false,
+                                        info: false,
+                                        paging: false,
+                                        scrollX: false,
+                                        columnDefs: [
+                                        { targets: 1, width: 250 }
+                                        ]
+                                    });
+                                });
+                            </script>
                         </div>
                     </div>
                 </div>
@@ -80,24 +116,7 @@
 </div>
 {% endblock %}
 
-<!--{% block script %}-->
-<!--<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>-->
-<!--&lt;!&ndash;정렬기능 부트스트랩&ndash;&gt;-->
-<!--<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>-->
-<!--<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>-->
-
-<!--<script type='text/javascript'>-->
-<!--$(document).ready(function() {-->
-<!--    $('#table_user').DataTable({-->
-<!--        searching: false,-->
-<!--        ordering: true,-->
-<!--        paging: false,-->
-<!--        info: false,-->
-<!--        scrollX: false,-->
-<!--        columnDefs: [-->
-<!--		    { targets: 2, width: 100 }-->
-<!--		]-->
-<!--    });-->
-<!--});-->
-<!--</script>-->
-<!--{% endblock %}-->
+{% block script %}
+<!--mychart 차트-->
+<!--mypoint 테이블-->
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<div>
+    <div class="car-title">
+            <h5 class="my-3 border-bottom pb-2" align="center">자동차탄소포인트</h5>
+    </div>
+    <form method="post" class="post-form my-3" action="{% url 'point:calculation' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">계산하기</button>
+    </form>
+</div>
+</div>
+{% endblock %}

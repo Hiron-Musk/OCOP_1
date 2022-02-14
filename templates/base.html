@@ -12,11 +12,18 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
         <title>OCO:P</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href='{% static "assets/logo.JPG" %}' />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href='{% static "css/styles.css" %}' rel="stylesheet" />
+<!--        <link rel="stylesheet" href='{% static "css/style_page.css" %}'  type="text/css">-->
+        <link rel='stylesheet' href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     </head>
     <body>
         <!-- Responsive navbar-->
@@ -32,7 +39,7 @@
                         <li class = "nav-item"><a class = "nav-link" href = "{% url 'OCOP:logout' %}">로그아웃</a></li>
                         <li class = "nav-item"><a class = "nav-link" href = "{% url 'point:carbonpage' %}">탄소포인트</a></li>
                         <li class = "nav-item"><a class = "nav-link" href = "{% url 'point:greenpage' %}">그린포인트</a></li>
-                        <li class = "nav-item"><a class = "nav-link" href = "#">자동차탄소포인트</a></li>
+                        <li class = "nav-item"><a class = "nav-link" href = "{% url 'point:carpage' %}">자동차탄소포인트</a></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             게시판
@@ -40,9 +47,9 @@
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <a class="dropdown-item" href="{% url 'pybo:pybo' %}">공지사항</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{% url 'pybo:pybo' %}">탄소포인트</a>
-                                <a class="dropdown-item" href="{% url 'pybo:pybo' %}">그린포인트</a>
-                                <a class="dropdown-item" href="{% url 'pybo:pybo' %}">자동차탄소포인트</a>
+                                <a class="dropdown-item" href="/pybo/question/list/carbon">탄소포인트</a>
+                                <a class="dropdown-item" href="/pybo/question/list/green">그린포인트</a>
+                                <a class="dropdown-item" href="/pybo/question/list/car">자동차탄소포인트</a>
 
                             </div>
                         </li>
@@ -51,7 +58,7 @@
                         <li class = "nav-item"><a class = "nav-link" href = "{% url 'OCOP:signup' %}"><strong>회원가입</strong></a></li>
                         <li class = "nav-item"><a class = "nav-link" href = "{% url 'point:carbonpage' %}">탄소포인트</a></li>
                         <li class = "nav-item"><a class = "nav-link" href = "{% url 'point:greenpage' %}">그린포인트</a></li>
-                        <li class = "nav-item"><a class = "nav-link" href = "#">자동차탄소포인트</a></li>
+                        <li class = "nav-item"><a class = "nav-link" href = "{% url 'point:carpage' %}">자동차탄소포인트</a></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             게시판
@@ -72,6 +79,12 @@
 
         <!--jQuery JS-->
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <!--datatable-->
+        <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+        <!--차트-->
+<!--        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>-->
+
+
         <!-- Core theme JS-->
         <script src='{% static "js/scripts.js" %}'></script>
         <!-- Bootstrap core JS-->

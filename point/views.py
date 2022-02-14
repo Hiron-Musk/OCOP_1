@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Carbonpoint, Greenpoint, Userpoint
-from .forms import CarbonForm, GreenForm, AddPointForm, AddGreenForm
+from .forms import CarbonForm, GreenForm, AddPointForm, AddGreenForm,CarForm,AddCarForm
 
 from django.views.decorators.http import require_POST
 from .cart import Cart, Cartgreen
@@ -219,70 +219,154 @@ def Removegreen(request, Greenpoint_id):
     cart.remove(point)
     return redirect('point:detailgreen')
 
-# def Createuserpoint(request):
-#     if request.method == 'POST':
-#         cart = Cart(request.POST)
-#         if form.is_valid():
-#             userpoint = cart.save(commit=False)
-#             userpoint.create_date = timezone.now()
-#             userpoint.save()
-#             return redirect('point:carbonlist')
-#     else:
-#         form = CarbonForm()
-#
-#     context = {'form': form}
-#     return render(request, 'point/carbonform.html', context)
+def Carpage(request):
+    """
+    carpoint 입력값 받기
+    """
+    form=AddCarForm()
+    return render(request,'point/car.html',{'form':form})
 
-# def Addcarbon(request, Carbonpoint_id):
-#     """
-#     add cart 연습
-#     """
-#     addpoint = Carbonpoint.objects.get(pk=Carbonpoint_id)
-#
-#     try:
-#         cart = Cartcarbon.objects.get(point_id = Carbonpoint.id, user_id=request.user.pk)
-#         if cart:
-#             if cart.carbonpoint.pointtype == addpoint.pointtype:
-#                 cart.quantity +=1
-#                 cart.save()
-#     except Cartcarbon.DoesNotExist:
-#         user = User.objects.get(pk=request.user.pk)
-#         cart = Cartcarbon(user=user, carbonpoint=addpoint, quantity=1)
-#         cart.save()
-#     return redirect('point:usercarbon')
-#
-# def Usercarbon(request):
-#     """
-#     add cart 연습
-#     """
-#     cartpoint=Cartcarbon.objects.filter(user_id=request.user.pk)
-#
-#     total_point=0
-#     for each_total in cartpoint:
-#         total_point += each_total.carbonpoint.cpoint * each_total.quantity
-#     if cartpoint is not None:
-#         context = {
-#             'cartpoint':cartpoint,
-#             'total_point': total_point,
-#         }
-#     return render(request, 'cartlist.html', context)
+def Carcalculation(request):
+    # 참여시점 총 누적 주행거리
+    start_total_mileage = request.POST.get('start_total_mileage')
+    start_total_mileage=float(start_total_mileage)
+    print(start_total_mileage)
 
+    # 참여시점 총 누적 주행거리 제출일자
+    start_date_year = request.POST.get('start_date_year')
+    start_date_year=int(start_date_year)
+    start_date_month = request.POST.get('start_date_month')
+    start_date_month = int(start_date_month)
+    start_date_day = request.POST.get('start_date_day')
+    start_date_day = int(start_date_day)
+    print(start_date_year,start_date_month,start_date_day)
 
+    # 차량등록일자
+    start_register_date_year = request.POST.get('start_register_date_year')
+    start_register_date_year = int(start_register_date_year)
+    start_register_date_month = request.POST.get('start_register_date_month')
+    start_register_date_month = int(start_register_date_month)
+    start_register_date_day = request.POST.get('start_register_date_day')
+    start_register_date_day = int(start_register_date_day)
+    print(start_register_date_year,start_register_date_month,start_register_date_day)
 
+    # 사업종료시 총 누적 주행거리
+    end_total_mileage = request.POST.get('end_total_mileage')
+    end_total_mileage=float(end_total_mileage)
+    print(end_total_mileage)
 
+    # 사업종료시 총 누적 주행거리 제출일자
+    end_date_year = request.POST.get('end_date_year')
+    end_date_year = int(end_date_year)
+    end_date_month = request.POST.get('end_date_month')
+    end_date_month = int(end_date_month)
+    end_date_day = request.POST.get('end_date_day')
+    end_date_day = int(end_date_day)
+    print(end_date_year,end_date_month,end_date_day)
 
+    # 참여신청시 총 누적 주행거리 제출일자 - 차량등록일자
 
+    if start_register_date_day > start_date_day:
+        avg_result_month = (start_date_month - start_register_date_month - 1)*30
+        avg_result_day = 30 + start_date_day - start_register_date_day
+        avg_result_year = (start_date_year - start_register_date_year) * 365
+    else:
+        avg_result_month = (start_date_month - start_register_date_month)*30
+        avg_result_day = start_date_day - start_register_date_day
+        avg_result_year = (start_date_year - start_register_date_year) * 365
 
+    res = avg_result_month + avg_result_day + avg_result_year
+    print(res)
 
+    # 일평균주행거리 = 참여신청시 총 누적 주행거리 / (참여신청시 총 누적 주행거리 제출일자 - 차량등록일자)
+    average_daily_mileage = start_total_mileage / res
+    print(average_daily_mileage)
 
+    # 참여기간 = 사업종료시 총 누적 주행거리 제출일자 - 사업참여시 총 누적 주행거리 제출일자
+    if start_date_day > end_date_day:
+        participation_result_month = (end_date_month - start_date_month - 1)*30
+        participation_result_day = 30 + end_date_day - start_date_day
+        participation_result_year = (end_date_year - start_date_year) * 365
+    else:
+        participation_result_month = (end_date_month - start_date_month)*30
+        participation_result_day = end_date_day - start_date_day
+        participation_result_year = (end_date_year - start_date_year) * 365
 
+    participation_period = participation_result_year + participation_result_month + participation_result_day
+    print(participation_period)
 
+    # 기준주행거리=일평균주행거리 * 참여기간
+    standard_mileage = average_daily_mileage * participation_period
+    standard_mileage = round(standard_mileage, 2)
+    print(standard_mileage)
 
+    # 확인주행거리=사업종료시 총 누적 주행거리 - 참여신청시 총 누적 주행거리
+    confirmation_mileage = end_total_mileage - start_total_mileage
+    print(confirmation_mileage)
 
-#
-# def add_carbon(request):
-#     selpoint = Carbonpoint.objects.get(id=Carbonpoint.id)
-#
-#     try:
-#
-# def my_carbon():
+    # 감축거리=기준주행거리-확인주행거리
+    reduced_distance = standard_mileage - confirmation_mileage
+    print(reduced_distance)
+
+    # 감축율=(기준주행거리-확인주행거리)/기준주행거리*100
+    reduction_rate = (standard_mileage - confirmation_mileage)/(standard_mileage * 100)
+    reduction_rate = round(reduction_rate)
+    print(reduction_rate)
+
+    # 총포인트
+    if 0 <= reduction_rate < 10:
+        carpoint = 20000
+    elif reduction_rate < 20:
+        carpoint = 40000
+    elif reduction_rate < 30:
+        carpoint = 60000
+    elif reduction_rate < 40:
+        carpoint = 80000
+    else:
+        carpoint = 100000
+
+    #수정
+    pointcar = {'carpoint': carpoint}
+    if request.method == 'POST':
+        form = CarForm(request.POST)
+        print('form111',form)
+        if form.is_valid():
+            # carpoint = form.save(commit=False)
+            form = pointcar.values
+            print('form222', form)
+            # carpoint.create_date = timezone.now()
+            form.save()
+            return redirect('pybo:index')
+    else:
+        form = CarForm()
+    context = {'form': form}
+    return render(request, 'point/car_calculation.html', context)
+
+    # print(carpoint)
+    # pointcar={'carpoint': carpoint}
+    # print('pointcar', pointcar)
+    # form = CarForm()
+    # form["carpoint"]=pointcar
+    # print('form111', form)
+    # context = {'carpoint': carpoint}
+    # return render(request, 'point/car_calculation.html', context)
+
+@require_POST
+def Carsave(request):
+    form = CarForm(request.POST)
+    userpoint = Userpoint()
+    print(form)
+    print(userpoint)
+
+    userpoint.user = request.user
+    print('user1', userpoint.user)
+    userpoint.carpoint = form.cleaned_data['carpoint']
+    # print('carpoint', form.cleaned_data['carpoint'])
+    print('carpoint',userpoint.carpoint)
+    # print('carbon1', userpoint.carbonpoint)
+    # userpoint.totalpoint = userpoint.carbonpoint*userpoint.greenpoint
+    userpoint.create_date = timezone.now()
+    print('date1', userpoint.create_date)
+    userpoint.save()
+    print('userpoint1', userpoint.user, userpoint.carpoint, userpoint.create_date)
+    return render(request, 'mypage/mypage.html')
