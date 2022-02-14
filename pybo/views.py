@@ -167,6 +167,7 @@ def answer_delete(request, answer_id):
         answer.delete()
     return redirect('pybo:detail', question_id=answer.question.id)
 
+@login_required(login_url='common:login')
 def vote_question(request, question_id):
     """
     pybo 질문추천등록

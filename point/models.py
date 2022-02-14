@@ -30,10 +30,10 @@ class Greenpoint(models.Model):
 
 class Userpoint(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    carbonpoint = models.IntegerField(blank=True, null=True)
-    greenpoint = models.IntegerField(blank=True, null=True)
-    vehiclepoint = models.IntegerField(blank=True, null=True)
-    totalpoint = models.IntegerField(blank=True, null=True)
+    carbonpoint = models.IntegerField(blank=True, default=0)
+    greenpoint = models.IntegerField(blank=True, default=0)
+    vehiclepoint = models.IntegerField(blank=True, default=0)
+    totalpoint = models.IntegerField(blank=True, default=0)
     # carbonpoint = models.ForeignKey(Carbonpoint, on_delete=models.CASCADE)
     # active = models.BooleanField(default=True)
     # quantity = models.PositiveSmallIntegerField(null=True, default=1,
