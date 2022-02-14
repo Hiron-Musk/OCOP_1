@@ -233,6 +233,21 @@ def Saveusercarbon(request):
     print('userpoint1', userpoint.user, userpoint.carbonpoint, userpoint.create_date)
     return render(request, 'point/carbon.html')
 
+@require_POST
+def Saveusergreen(request):
+    cart = Cartgreen(request)
+    userpoint = Userpoint()
+    userpoint.user = request.user
+    print('user1', userpoint.user)
+    userpoint.greenpoint = cart.get_total_gpoint
+    # print('carbon1', userpoint.carbonpoint)
+    # userpoint.totalpoint = userpoint.carbonpoint*userpoint.greenpoint
+    userpoint.create_date = timezone.now()
+    print('date1', userpoint.create_date)
+    userpoint.save()
+    print('userpoint1', userpoint.user, userpoint.carbonpoint, userpoint.create_date)
+    return render(request, 'point/green.html')
+
 
     # cart = Cart(request)
     # print('cart1', cart)

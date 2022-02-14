@@ -171,5 +171,6 @@ class Cartgreen(object):
         self.session[settings.CART_IDG] = {}
         self.session.modified = True
 
+    @property
     def get_total_gpoint(self):
         return sum(int(gitem['gpoint'])*int(gitem['quantity'])for gitem in self.cart.values())
