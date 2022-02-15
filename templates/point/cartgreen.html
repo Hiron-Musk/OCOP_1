@@ -7,19 +7,30 @@
 
 {% block content %}
 <table class="table table-striped">
+    <div class="green-title">
+        <h5 class="my-3 border-bottom pb-2" align="center">그린포인트</h5>
+    </div>
+    <thead>
+        <tr>
+            <th scope="col">종류</th>
+            <th scope="col">수량</th>
+            <th scope="col"></th>
+            <th scope="col">포인트량</th>
+            <th scope="col">총포인트량</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
     <tbody>
-        <div>그린 포인트</div>
         <div>
         {% for gitem in cart %}
             {% with Greenpoint=gitem.greenpoint %}
             <tr>
-                <td>{{ Greenpoint.pointtype }}</td>
-                <td>{{ gitem.quantity_form.quantity }}</td>
-                <td>{{ gitem.quantity_form.is_update }}</td>
-
-                <td><a href="{% url 'point:removegreen' Greenpoint.id %}">삭제하기</a></td>
+                <th scope="col">{{ Greenpoint.pointtype }}</th>
+                <td scope="col">{{ gitem.quantity_form.quantity }}</td>
+                <td scope="col">{{ gitem.quantity_form.is_update }}</td>
                 <td class="num">{{ gitem.gpoint }}P</td>
-                <td class="num">{{ gitem.total_gpoint }}P</td>
+                <th class="num">{{ gitem.total_gpoint }}P</th>
+                <td><a href="{% url 'point:removegreen' Greenpoint.id %}">삭제하기</a></td>
             </tr>
             {% endwith %}
         {% endfor %}
@@ -31,15 +42,19 @@
     <table class="table table-striped">
         <tbody>
         <tr class="total">
-            <td>Total</td>
-            <td colspan="4"></td>
+            <th scope="col">Total</th>
+            <td scope="col"></td>
+            <td scope="col"></td>
+            <td scope="col"></td>
             <td class="num">{{ cart.get_total_gpoint }}P</td>
         </tr>
         </tbody>
     </table>
-<input type="submit" class="ben btn-primary ben-sm" value="저장하기기"></form>
+<input type="submit" class="btn btn-success" value="저장하기">
+    <a href="{% url 'point:greenpage' %}" class="btn btn-info">포인트 추가하기</a>
+</form>
     <p class="text-right">
-        <a href="{% url 'point:greenpage' %}" class="btn btn-secondary">포인트 추가하기</a>
+
 
     </p>
 {% endblock %}

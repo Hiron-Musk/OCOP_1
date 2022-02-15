@@ -10,17 +10,6 @@
             <form method="post" class="post-form my-3" action="{% url 'point:calculation' %}">
                 {% csrf_token %}
                 {{ form.as_p }}
-<!--                참여 시점의 총 누적 주행거리(km) : <input type="float" name="start_total_mileage"></input>-->
-<!--                참여시점의 총 누적 주행 거리 제출일자(년): <input type="float" name="start_date_year"></input>-->
-<!--                참여시점의 총 누적 주행 거리 제출일자(월): <input type="float" name="start_date_month"></input>-->
-<!--                참여시점의 총 누적 주행 거리 제출일자(일): <input type="float" name="start_date_day"></input>-->
-<!--                차량 최초 등록 일자(년): <input type="float" name="start_register_date_year"></input>-->
-<!--                차량 최초 등록 일자(월): <input type="float" name="start_register_date_month"></input>-->
-<!--                차량 최초 등록 일자(일): <input type="float" name="start_register_date_day"></input>-->
-<!--                사업종료시 총 누적 주행 거리(km) <input type="float" name="start_register_date_day"></input>-->
-<!--                사업종료시 총 누적 주행거리 제출일자(년): <input type="float" name="start_total_mileage"></input>-->
-<!--                사업종료시 총 누적 주행거리 제출일자(월): <input type="float" name="start_total_mileage"></input>-->
-<!--                사업종료시 총 누적 주행거리 제출일자(일): <input type="float" name="start_total_mileage"></input>-->
                 <input type="submit" class="btn btn-outline-success" value="계산하기"></input>
             </form>
         </div>
