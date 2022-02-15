@@ -73,21 +73,21 @@ class CarForm(forms.Form):
         }
 
 class AddCarForm(forms.Form):
-    start_total_mileage =forms.FloatField(label=mark_safe('<strong>참여시점의 총 누적 주행거리(km)</strong>'),)
+    start_total_mileage =forms.FloatField(label='참여시점의 총 누적 주행거리(km)')
 
-    start_date_year=forms.IntegerField(label=mark_safe('<strong>참여시점의 총 누적 주행 거리 제출일자(년)</strong>'))
-    start_date_month=forms.IntegerField(label=mark_safe('<strong>참여시점의 총 누적 주행 거리 제출일자(월)</strong>'))
-    start_date_day=forms.IntegerField(label=mark_safe('<strong>참여시점의 총 누적 주행 거리 제출일자(일)</strong>'))
+    start_date_year=forms.IntegerField(label='참여시점의 총 누적 주행 거리 제출일자(년)')
+    start_date_month=forms.IntegerField(label='참여시점의 총 누적 주행 거리 제출일자(월)')
+    start_date_day=forms.IntegerField(label='참여시점의 총 누적 주행 거리 제출일자(일)')
 
-    start_register_date_year=forms.IntegerField(label=mark_safe('<strong>차량 최초 등록 일자(년)</strong>'))
-    start_register_date_month=forms.IntegerField(label=mark_safe('<strong>차량 최초 등록 일자(월)</strong>'))
-    start_register_date_day=forms.IntegerField(label=mark_safe('<strong>차량 최초 등록 일자(일)</strong>'))
+    start_register_date_year=forms.IntegerField(label='차량 최초 등록 일자(년)')
+    start_register_date_month=forms.IntegerField(label='차량 최초 등록 일자(월)')
+    start_register_date_day=forms.IntegerField(label='차량 최초 등록 일자(일)')
 
-    end_total_mileage=forms.FloatField(label=mark_safe('<strong>사업종료시 총 누적 주행 거리(km)</strong>'))
+    end_total_mileage=forms.FloatField(label='사업종료시 총 누적 주행 거리(km)')
 
-    end_date_year=forms.IntegerField(label=mark_safe('<strong>사업종료시 총 누적 주행거리 제출일자(년)</strong>'))
-    end_date_month = forms.IntegerField(label=mark_safe('<strong>사업종료시 총 누적 주행거리 제출일자(월)</strong>'))
-    end_date_day = forms.IntegerField(label=mark_safe('<strong>사업종료시 총 누적 주행거리 제출일자(일)</strong>'))
+    end_date_year=forms.IntegerField(label='사업종료시 총 누적 주행거리 제출일자(년)')
+    end_date_month = forms.IntegerField(label='사업종료시 총 누적 주행거리 제출일자(월)')
+    end_date_day = forms.IntegerField(label='사업종료시 총 누적 주행거리 제출일자(일)')
 
     # total_carpoint = forms.IntegerField(label='자동차탄소포인트')
     class Meta:

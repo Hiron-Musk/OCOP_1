@@ -3,3 +3,4 @@ db.sqlite3
 __pycache__
 *.pyc
 /pybo/migrations/0001_initial.py
+/point/migrations/0001_initial.py
