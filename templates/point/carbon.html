@@ -5,7 +5,6 @@
     <div class="green-title">
             <h5 class="my-3 border-bottom pb-2" align="center">탄소포인트</h5>
     </div>
-
     <div>
         <div class="green-list">
             {% for Carbonpoint in carbon_list %}
@@ -29,8 +28,10 @@
             <P></P>
             <a href = "{% url 'point:detail' %}" class = 'btn btn-sm btn-outline-secondary'>포인트바구니바로가기</a>
         </div>
+
     </div>
 </div>
+
 </div>
 {% endblock %}
 

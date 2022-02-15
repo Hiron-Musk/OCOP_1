@@ -27,6 +27,8 @@ urlpatterns = [
 
     path('car/', views.Carpage, name='carpage'),
     path('calculation/',views.Carcalculation,name='calculation'),
+    path('carpoint_create/',views.carpoint_create,name='carpoint_create'),
+    # path('usercar/', views.Usercar, name='usercar'),
     # path('calculation/',views.Carsave,name='carsave'),
 
     path('saveusercarbon/', views.Saveusercarbon, name='saveusercarbon'),

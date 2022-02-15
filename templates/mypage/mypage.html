@@ -15,7 +15,6 @@
                             <h6 class="m-0 font-weight-bold text-primary text-success">My Chart</h6>
                         </div>
                         <div class = "card-body">
-<!--                        <img src = "data:image/png;base64,{{ data }}" alt="" height="100%", width="100%">-->
                             <canvas id="mypage-chart" data-url="{% url 'mypage:mypage-chart' %}"></canvas>
                         </div>
                         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -89,7 +88,7 @@
                                         </tr>
                                         <tr>
                                             <th>자동차탄소포인트</th>
-                                            <th>{{ sumcarpoint }}</th>
+                                            <th>{{ sumvehiclepoint }}</th>
                                         </tr>
 
                                     </tbody>
