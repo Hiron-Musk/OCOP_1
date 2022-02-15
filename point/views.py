@@ -155,37 +155,19 @@ def Greenpage(request):
     return render(request, 'point/green.html', context)
 
 def Detail(request):
-    # if HttpResponse(None):
-    #     return redirect('point:carbonpage')
-    # else:
-    #
-    # addcarbon = Formcarbonpoint(initial={'carbon':['carbon'], 'is_update':True})
     cart = Cart(request)
-    # form = Formcarbonpoint(instance=cart.addcarbon)
-        # for i in range(0, cart.cartcount(),):
     for point in cart:
         point = AddPointForm(initial={'quantity':point['quantity'], 'is_update':True})
-        # print(cart.cartcount())
-
-    # for cpoint in cart:
-    #     cpoint = Formcarbonpoint(initial={'cpoint':cpoint['cpoint'], 'is_update':True})
-    #     print('cpoint', cpoint)
         context = {'point': point, 'cart': cart}
         return render(request, 'point/cartdetail.html', context)
 
 def Detailgreen(request):
-    print('Detailgreen')
 
     cart = Cartgreen(request)
-    print('Detailgreen1')
-    # for i in range(0, cart.cartcount(),):
     for point in cart:
         print('Detailgreen2')
         point = AddGreenForm(initial={'quantity':point['quantity'], 'is_update':True})
-        print('Detailgreen3')
-        # print(cart.cartcount())
         context = {'point': point, 'cart': cart}
-        print('Detailgreen4')
         return render(request, 'point/cartgreen.html', context)
 
 @require_POST
@@ -238,21 +220,11 @@ def Carpage(request):
 @require_POST
 def Saveusercarbon(request):
     cart = Cart(request)
-    # form = Formcarbonpoint(request.POST)
     userpoint = Userpoint()
-    # if form.is_valid():
-    #     userpoint = form.save(commit=False)
-    #     userpoint.carbonpoint = cart.get_total_point
-    #
-    #         form.save()
     userpoint.user=request.user
-    print('user1', userpoint.user)
     userpoint.carbonpoint = cart.get_total_point
-    # print('carbon1', userpoint.carbonpoint)
     userpoint.create_date=timezone.now()
-    print('date1', userpoint.create_date)
     userpoint.save()
-    print('userpoint1', userpoint.user, userpoint.carbonpoint, userpoint.create_date)
     return render(request, 'mypage/mypage.html')
 
 @require_POST
@@ -260,114 +232,21 @@ def Saveusergreen(request):
     cart = Cartgreen(request)
     userpoint = Userpoint()
     userpoint.user = request.user
-    print('user1', userpoint.user)
     userpoint.greenpoint = cart.get_total_gpoint
-    # print('carbon1', userpoint.carbonpoint)
-    # userpoint.totalpoint = userpoint.carbonpoint*userpoint.greenpoint
     userpoint.create_date = timezone.now()
-    print('date1', userpoint.create_date)
     userpoint.save()
-    print('userpoint1', userpoint.user, userpoint.carbonpoint, userpoint.create_date)
     return render(request, 'mypage/mypage.html')
-
 @require_POST
 def Usercarbon(request):
     form = Formcarbonpoint(request.POST)
 
     userpoint = Userpoint()
-    print('form1', form)
     userpoint.user = request.user
-    print('user1', userpoint.user)
     userpoint.carbonpoint = form.cleaned_data['cpoint']
-    print('cpoint',userpoint.carbonpoint)
-    # print('carbon1', userpoint.carbonpoint)
-    # userpoint.totalpoint = userpoint.carbonpoint*userpoint.greenpoint
     userpoint.create_date = timezone.now()
-    print('date1', userpoint.create_date)
     userpoint.save()
-    print('userpoint1', userpoint.user, userpoint.carbonpoint, userpoint.create_date)
     context = {'userpoint':userpoint}
     return render(request, 'point/carbon.html', context)
-
-# def Removecarbon(request):
-#     carbon = get_object_or_404(Userpoint)
-#     carbon.delete()
-#     return render(request, 'point/carbon.html')
-
-
-
-    # if request.method == 'POST':
-    #     form = CarbonForm(request.POST, instance = carbon)
-    #     if form.is_valid():
-    #         carbonpoint = form.save(commit=False)
-    #         carbonpoint.modify_date = timezone.now()
-    #         carbonpoint.save()
-    #         return redirect('point:carbonlist')
-    # cart = Cart(request)
-    # print('cart1', cart)
-    #
-    # form = Savecarbonpoint(request.POST)
-    # print('form1', form.user)
-    # if form.is_valid():
-    #     form = form.save(commit=False)
-    #     form.carbonpoint = cart.get_total_point
-    #     form.crate_date = timezone.now()
-    #     form.save()
-    #
-    #     print('form2', form)
-    #
-    #     return render('point/carbon.html')
-    # cart = Cart(request)
-    # if request.method == 'POST':
-    #     form = Saveusercarbon(request.POST)
-    #     print('form1', form)
-    #     if form.is_valid():
-    #         form = cart.save(commit=False)
-    #         print('form2', form)
-    #         form.user = User.username
-    #         print('user1',form.user )
-    #         form.carbonpoint = cart.get_total_point
-    #         print('cart1', cart)
-    #         form.create_date = timezone.now()
-    #         form.save()
-    #         return redirect('point:detail')
-    #     else:
-    #         form = cart()
-    #
-    # content = {'cart':cart, 'form':form}
-    # return render(request, 'point/carbon.html', content)
-
-    # if request.method == 'POST':
-    #     form = CarbonForm(request.POST)
-    #     if form.is_valid():
-    #         carbonpoint = form.save(commit=False)
-    #         carbonpoint.create_date = timezone.now()
-    #         carbonpoint.save()
-    #         return redirect('point:carbonlist')
-    # else:
-    #     form = CarbonForm()
-    #
-    # context = {'form': form}
-    # return render(request, 'point/carbonform.html', context)
-    # if request.method == 'POST':
-    #     print('save6')
-    #     form = Savecarbonpoint(request.POST)
-    #     if form.is_valid():
-    #         info = form.save()
-    #         print('save5', info)
-    #         info.user = User.username
-    #         print('save3', info.user)
-    #         print('save4', User.username)
-    #         info.carbonpoint = cart.get_total_point
-    #         info.create_date = timezone.now()
-    #         info.save()
-    #         return redirect('mypage:,mypage')
-    # else:
-    #     form = Savecarbonpoint()
-
-
-
-
 
 
 def Carcalculation(request):
@@ -488,139 +367,8 @@ def Carcalculation(request):
     }
 
     context = {'total_carpoint': total_carpoint}
-    print(total_carpoint)
-
-
-
     return render(request, 'point/car_calculation.html', context)
 
-    # if request.method == "POST":
-    #     form = AddCarForm(request.POST)
-    #     if form.is_valid():
-    #
-    #         return redirect('point:calculation')
-    # else:
-    #     form = AddCarForm()
-    # context = {'total_carpoint': total_carpoint,'form': form,}
-    # return render(request, 'point/car_calculation.html', context)
-
-
-    # if request.POST.get:
-    #     list_carpoint =request.POST.getlist('total_carpoint')
-    #     print(list_carpoint)
-    # print(total_carpoint)
-    # print(type(total_carpoint))
-    # carpoint_list = [total_carpoint]
-    # print(carpoint_list)
-    # data = []
-    # carpoint_data = data.append(carpoint_list)
-    # print(carpoint_data)
-    # print(AddCarForm)
-    #수정
-
-    # context = {}
-    # inital_dict = {
-    #     "start_total_mileage": 0,
-    #     "start_date_year": 0,
-    #     "start_date_month": 0,
-    #     "start_date_day": 0,
-    #     "start_register_date_year": 0,
-    #     "start_register_date_month": 0,
-    #     "start_register_date_day": 0,
-    #     "end_total_mileage": 0,
-    #     "end_date_year": 0,
-    #     "end_date_month": 0,
-    #     "end_date_day": 0,
-    #     # "total_carpoint": total_carpoint,
-    # }
-
-    # form = AddCarForm(request.POST or None, initial = inital_dict)
-    # print(form)
-    # print(form['total_carpoint'])
-    # context['form'] = form
-    # if request.method == "POST":
-    #     form = AddCarForm(request.POST or None, request.FILES)
-    #     if form.is_valid():
-    #         carp = Carpoint()
-    #         print(form.cleaned_data['total_carpoint'])
-    #         carp.carpoint = form.cleaned_data['total_carpoint']
-    #         print(carp.carpoint)
-    #         carp.save()
-    # #         return redirect('point:calculation')
-    # else:
-    #     form = AddCarForm()
-    # context = {'form': form,}
-    # return render(request, 'point/car_calculation.html', context)
-    # ctx = {}
-    # if request.method == 'GET':
-    #     form = CarForm()
-    #     ctx.update({"form":form})
-    # elif request.method == "POST":
-    #     form =
-
-    # pointcar = {'carpoint': carpoint}
-    # print(carpoint)
-    # carpoint_data = [carpoint]
-    # print(carpoint_data)
-    # qs_carpoint = Userpoint.objects.values('vehiclepoint').annotate(carpoint_data='carpoint_data')
-    # print(qs_carpoint)
-
-    # car = get_object_or_404(Carpoint, pk=Carpoint_id)
-    # print(car)
-    # if request.method == "get":
-    #     form = AddCarForm(request.POST, instance=car)
-    #     if form.is_valid():
-    #         car=form.save(commit=False)
-    #         car.carpoint = request.total_carpoint
-    #         print(car)
-    #         car.save()
-    #         return redirect('point:calculation', Carpoint_id)
-    # else:
-    #     form = AddCarForm()
-    # context = {'form': form, 'total_carpoint': total_carpoint,}
-    # return render(request, 'point/car_calculation.html', context)
-
-            # carpoint = form.save(commit=False)
-            # form = pointcar.values
-            # print('form222', form)
-            # carpoint.create_date = timezone.now()
-
-    #         return redirect('pybo:index')
-    # else:
-    #     form = CarForm()
-
-
-    # print(carpoint)
-    # pointcar={'carpoint': carpoint}
-    # print('pointcar', pointcar)
-    # form = CarForm()
-    # form["carpoint"]=pointcar
-    # print('form111', form)
-
-
-# @require_POST
-# def Carsave(request):
-#     form = AddCarForm
-#     context = {
-#         'form':form,
-#     }
-#     return render(request, 'mypage/mypage.html', context)
-#
-    # print(form)
-    # print(userpoint)
-    #
-    # userpoint.user = request.user
-    # print('user1', userpoint.user)
-    # userpoint.carpoint = form.cleaned_data['carpoint']
-    # # print('carpoint', form.cleaned_data['carpoint'])
-    # print('carpoint',userpoint.carpoint)
-    # # print('carbon1', userpoint.carbonpoint)
-    # # userpoint.totalpoint = userpoint.carbonpoint*userpoint.greenpoint
-    # userpoint.create_date = timezone.now()
-    # print('date1', userpoint.create_date)
-    # userpoint.save()
-    # print('userpoint1', userpoint.user, userpoint.carpoint, userpoint.create_date)
-    # return render(request, 'mypage/mypage.html', context)
 
 def carpoint_create(request):
 

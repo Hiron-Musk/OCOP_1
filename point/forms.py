@@ -89,13 +89,10 @@ class AddCarForm(forms.Form):
     end_date_month = forms.IntegerField(label='사업종료시 총 누적 주행거리 제출일자(월)')
     end_date_day = forms.IntegerField(label='사업종료시 총 누적 주행거리 제출일자(일)')
 
-    # total_carpoint = forms.IntegerField(label='자동차탄소포인트')
     class Meta:
         fields = ['start_total_mileage','start_date_year','start_date_month','start_date_day',
                   'start_register_date_year','start_register_date_month','start_register_date_day','end_total_mileage',
                   'end_date_year','end_date_month','end_date_day']
-        # , 'total_carpoint'
-
 
         labels = {
             'start_total_mileage':'참여시점의 총 누적 주행거리(km)',
@@ -109,15 +106,4 @@ class AddCarForm(forms.Form):
             'end_date_year':'사업종료시 총 누적 주행거리 제출일자(년)',
             'end_date_moth': '사업종료시 총 누적 주행거리 제출일자(월)',
             'end_date_day': '사업종료시 총 누적 주행거리 제출일자(일)',
-            # 'total_carpoint': '자동차탄소포인트',
         }
-        # def __init__(self, data, **kwargs):
-        #     initial = kwargs.get('initial', {})
-        #     data = {**initial, **data}
-        #     super().__init__(data, **kwargs)
-        #
-        # def save(self, commit=True):
-        #     carp = Carpoint(**self.cleaned_data)
-        #     if commit:
-        #         carp.save()
-        #     return carp

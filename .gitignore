@@ -3,4 +3,8 @@ db.sqlite3
 __pycache__
 *.pyc
 /pybo/migrations/0001_initial.py
+<<<<<<< HEAD
 /point/migrations/0001_initial.py
+=======
+/point/migrations/0001_initial.py
+>>>>>>> 82d2c585449ac2c4822b947273edc84dffd6f363

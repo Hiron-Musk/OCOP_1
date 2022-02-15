@@ -35,7 +35,7 @@ class Carpoint(models.Model):
         db_table = 'Carpoint'
         verbose_name = '자동차탄소포인트'
 
-    #수정
+
 
 class Userpoint(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -43,10 +43,6 @@ class Userpoint(models.Model):
     greenpoint = models.IntegerField(blank=True, default=0)
     vehiclepoint = models.IntegerField(blank=True, default=0)
     totalpoint = models.IntegerField(blank=True, default=0)
-    # carbonpoint = models.ForeignKey(Carbonpoint, on_delete=models.CASCADE)
-    # active = models.BooleanField(default=True)
-    # quantity = models.PositiveSmallIntegerField(null=True, default=1,
-    # validators=[MinValueValidator(1), MaxValueValidator(100)])
     create_date = models.DateTimeField(editable=True)
 
     class Meta:
@@ -58,27 +54,3 @@ class Userpoint(models.Model):
     def __str__(self):
         return self.user.username
 
-
-
-# class Carbon(models.Model):
-#     user = models.ForeignKey(User, on_delete = models.CASCADE)
-#     point = models.ForeignKey(Carbonpoint, on_delete=models.CASCADE)
-#     # practice =
-#     # container =
-#     # refill =
-#     # total =
-#     active = models.BooleanField(default = True)
-#     quantity = models.PositiveSmallIntegerField(null=True, default=0, validators=[MinValueValidator(1), MaxValueValidator(100)])
-#     create_date = models.DateTimeField(auto_now_add=True)
-#
-#     class Meta:
-#         db_table = 'carbonuser'
-#         verbose_name = '탄소포인트'
-
-# class Green(models.Model):
-#     user =
-#     saving =
-#     hiking =
-#     greenpoint =
-#     create_date = models.DateTimeField(auto_now_add=True)
-#

@@ -1,20 +1,26 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="container my-3">
+<div class="container my-3" align="center">
     <div class="car-title">
             <h5 class="my-3 border-bottom pb-2" align="center">자동차탄소포인트</h5>
     </div>
     <div class="container row" style="float: none; margin:100 auto;">
-        <div class="col-md-4" style="float: none; margin:0 auto;">
-<!--            <div class="card text-center">-->
-                <form method="post" class="post-form my-3 text-center" action="{% url 'OCOP:OCOP' %}">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <h5> 총 포인트 : {{ total_carpoint }}</h5>
-                    <input type="submit" class="btn btn-outline-success" value="저장하기">
-                </form>
-<!--            </div>-->
+        <div class="col" style="float: none; margin:0 auto;">
+            <div class="card border-success mb-3" style="max-width: 18rem;">
+                <div class="card-header">합계</div>
+                <div class="card-body text-success text-center">
+                    <form method="post" class="post-form my-3 text-center" action="{% url 'mypage:mypage' %}">
+                        {% csrf_token %}
+
+                        <br></br>
+                        <h5 class="card-title"> 총 포인트 : {{ total_carpoint }}</h5>
+                        <br></br>
+                        <input type="submit" class="btn btn-outline-success" value="저장하기">
+                    </form>
+                </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
