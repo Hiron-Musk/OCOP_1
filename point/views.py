@@ -4,6 +4,7 @@ from .models import Carbonpoint, Greenpoint, Userpoint, Carpoint
 from .forms import CarbonForm, GreenForm, AddPointForm, AddGreenForm,CarForm,AddCarForm,Savecarbonpoint,Formcarbonpoint,Formcarpoint
 
 
+
 from django.views.decorators.http import require_POST
 from .cart import Cart, Cartgreen
 from django.utils import timezone
@@ -163,7 +164,7 @@ def Detail(request):
     # form = Formcarbonpoint(instance=cart.addcarbon)
         # for i in range(0, cart.cartcount(),):
     for point in cart:
-        point['quantity_form'] = AddPointForm(initial={'quantity':point['quantity'], 'is_update':True})
+        point = AddPointForm(initial={'quantity':point['quantity'], 'is_update':True})
         # print(cart.cartcount())
 
     # for cpoint in cart:
@@ -180,7 +181,7 @@ def Detailgreen(request):
     # for i in range(0, cart.cartcount(),):
     for point in cart:
         print('Detailgreen2')
-        point['quantity_form']  = AddGreenForm(initial={'quantity':point['quantity'], 'is_update':True})
+        point = AddGreenForm(initial={'quantity':point['quantity'], 'is_update':True})
         print('Detailgreen3')
         # print(cart.cartcount())
         context = {'point': point, 'cart': cart}
@@ -252,7 +253,7 @@ def Saveusercarbon(request):
     print('date1', userpoint.create_date)
     userpoint.save()
     print('userpoint1', userpoint.user, userpoint.carbonpoint, userpoint.create_date)
-    return render(request, 'OCOP/main_page.html')
+    return render(request, 'mypage/mypage.html')
 
 @require_POST
 def Saveusergreen(request):
@@ -267,7 +268,7 @@ def Saveusergreen(request):
     print('date1', userpoint.create_date)
     userpoint.save()
     print('userpoint1', userpoint.user, userpoint.carbonpoint, userpoint.create_date)
-    return render(request, 'OCOP/main_page.html')
+    return render(request, 'mypage/mypage.html')
 
 @require_POST
 def Usercarbon(request):
