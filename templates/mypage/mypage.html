@@ -15,7 +15,6 @@
                             <h6 class="m-0 font-weight-bold text-primary text-success">My Chart</h6>
                         </div>
                         <div class = "card-body">
-<!--                        <img src = "data:image/png;base64,{{ data }}" alt="" height="100%", width="100%">-->
                             <canvas id="mypage-chart" data-url="{% url 'mypage:mypage-chart' %}"></canvas>
                         </div>
                         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -25,34 +24,38 @@
                               var $mypageChart= $("#mypage-chart");
                               $.ajax({
                                 url: $mypageChart.data("url"),
-                                success: function (data) {
+                                success: function(data) {
 
                                   var ctx = $mypageChart[0].getContext("2d");
 
-                                  new Chart(ctx, {
+                                  var config = {
                                     type: 'bar',
+
                                     data: {
                                       labels: ['탄소포인트', '그린포인트', '자동차탄소포인트'],
                                       datasets: [{
-                                        label: 'Carbon',
+                                        label: 'Point',
                                         backgroundColor: '#6fae3f',
                                         data: data.data
                                       }]
                                     },
+
                                     options: {
                                       responsive: True,
-
                                       legend: {
                                         position: 'top',
                                       },
+
                                       title: {
                                         display: true,
                                         text: 'My Point Chart'
                                       }
-                                    }
-                                  });
 
-                                }
+                                    }
+
+                                    var mypageChart= new Chart(ctx, config)
+                                  };
+
                               });
 
                             });
@@ -90,7 +93,7 @@
                                         </tr>
                                         <tr>
                                             <th>자동차탄소포인트</th>
-                                            <th>{{ sumcarpoint }}</th>
+                                            <th>{{ sumvehiclepoint }}</th>
                                         </tr>
 
                                     </tbody>
