@@ -1,9 +1,14 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
+<<<<<<< HEAD
 from .models import Carbonpoint, Greenpoint, Userpoint
 from .forms import CarbonForm, GreenForm, AddPointForm, AddGreenForm,CarForm,AddCarForm,Savecarbonpoint, Formcarbonpoint
 
 
+=======
+from .models import Carbonpoint, Greenpoint, Userpoint, Carpoint
+from .forms import CarbonForm, GreenForm, AddPointForm, AddGreenForm,CarForm,AddCarForm,Savecarbonpoint,Formcarbonpoint,Formcarpoint
+>>>>>>> 4b0c345267a7f8dc6a505d19460a8db34093331b
 
 from django.views.decorators.http import require_POST
 from .cart import Cart, Cartgreen
@@ -140,6 +145,7 @@ def Carbonpage(request):
     carbon_list = Carbonpoint.objects.order_by('create_date')
     addcart = AddPointForm(initial={'quantity': 1})
     carboncart = Formcarbonpoint()
+    print(carboncart)
     context = {'carbon_list': carbon_list, 'addcart':addcart, 'carboncart':carboncart}
 
     return render(request, 'point/carbon.html', context)
@@ -458,32 +464,136 @@ def Carcalculation(request):
 
     # 총포인트
     if 0 <= reduction_rate < 10:
-        carpoint = 20000
+        total_carpoint = 20000
     elif reduction_rate < 20:
-        carpoint = 40000
+        total_carpoint = 40000
     elif reduction_rate < 30:
-        carpoint = 60000
+        total_carpoint = 60000
     elif reduction_rate < 40:
-        carpoint = 80000
+        total_carpoint = 80000
     else:
-        carpoint = 100000
+        total_carpoint = 100000
 
-    #수정
-    pointcar = {'carpoint': carpoint}
-    if request.method == 'POST':
-        form = CarForm(request.POST)
-        print('form111',form)
-        if form.is_valid():
-            # carpoint = form.save(commit=False)
-            form = pointcar.values
-            print('form222', form)
-            # carpoint.create_date = timezone.now()
-            form.save()
-            return redirect('pybo:index')
-    else:
-        form = CarForm()
-    context = {'form': form}
+    print(total_carpoint)
+
+    context = {}
+    inital_dict = {
+        "start_total_mileage": 0,
+        "start_date_year": 0,
+        "start_date_month": 0,
+        "start_date_day": 0,
+        "start_register_date_year": 0,
+        "start_register_date_month": 0,
+        "start_register_date_day": 0,
+        "end_total_mileage": 0,
+        "end_date_year": 0,
+        "end_date_month": 0,
+        "end_date_day": 0,
+        # "total_carpoint": total_carpoint,
+    }
+
+    context = {'total_carpoint': total_carpoint}
+    print(total_carpoint)
+
+
+
     return render(request, 'point/car_calculation.html', context)
+
+    # if request.method == "POST":
+    #     form = AddCarForm(request.POST)
+    #     if form.is_valid():
+    #
+    #         return redirect('point:calculation')
+    # else:
+    #     form = AddCarForm()
+    # context = {'total_carpoint': total_carpoint,'form': form,}
+    # return render(request, 'point/car_calculation.html', context)
+
+
+    # if request.POST.get:
+    #     list_carpoint =request.POST.getlist('total_carpoint')
+    #     print(list_carpoint)
+    # print(total_carpoint)
+    # print(type(total_carpoint))
+    # carpoint_list = [total_carpoint]
+    # print(carpoint_list)
+    # data = []
+    # carpoint_data = data.append(carpoint_list)
+    # print(carpoint_data)
+    # print(AddCarForm)
+    #수정
+
+    # context = {}
+    # inital_dict = {
+    #     "start_total_mileage": 0,
+    #     "start_date_year": 0,
+    #     "start_date_month": 0,
+    #     "start_date_day": 0,
+    #     "start_register_date_year": 0,
+    #     "start_register_date_month": 0,
+    #     "start_register_date_day": 0,
+    #     "end_total_mileage": 0,
+    #     "end_date_year": 0,
+    #     "end_date_month": 0,
+    #     "end_date_day": 0,
+    #     # "total_carpoint": total_carpoint,
+    # }
+
+    # form = AddCarForm(request.POST or None, initial = inital_dict)
+    # print(form)
+    # print(form['total_carpoint'])
+    # context['form'] = form
+    # if request.method == "POST":
+    #     form = AddCarForm(request.POST or None, request.FILES)
+    #     if form.is_valid():
+    #         carp = Carpoint()
+    #         print(form.cleaned_data['total_carpoint'])
+    #         carp.carpoint = form.cleaned_data['total_carpoint']
+    #         print(carp.carpoint)
+    #         carp.save()
+    # #         return redirect('point:calculation')
+    # else:
+    #     form = AddCarForm()
+    # context = {'form': form,}
+    # return render(request, 'point/car_calculation.html', context)
+    # ctx = {}
+    # if request.method == 'GET':
+    #     form = CarForm()
+    #     ctx.update({"form":form})
+    # elif request.method == "POST":
+    #     form =
+
+    # pointcar = {'carpoint': carpoint}
+    # print(carpoint)
+    # carpoint_data = [carpoint]
+    # print(carpoint_data)
+    # qs_carpoint = Userpoint.objects.values('vehiclepoint').annotate(carpoint_data='carpoint_data')
+    # print(qs_carpoint)
+
+    # car = get_object_or_404(Carpoint, pk=Carpoint_id)
+    # print(car)
+    # if request.method == "get":
+    #     form = AddCarForm(request.POST, instance=car)
+    #     if form.is_valid():
+    #         car=form.save(commit=False)
+    #         car.carpoint = request.total_carpoint
+    #         print(car)
+    #         car.save()
+    #         return redirect('point:calculation', Carpoint_id)
+    # else:
+    #     form = AddCarForm()
+    # context = {'form': form, 'total_carpoint': total_carpoint,}
+    # return render(request, 'point/car_calculation.html', context)
+
+            # carpoint = form.save(commit=False)
+            # form = pointcar.values
+            # print('form222', form)
+            # carpoint.create_date = timezone.now()
+
+    #         return redirect('pybo:index')
+    # else:
+    #     form = CarForm()
+
 
     # print(carpoint)
     # pointcar={'carpoint': carpoint}
@@ -491,25 +601,43 @@ def Carcalculation(request):
     # form = CarForm()
     # form["carpoint"]=pointcar
     # print('form111', form)
-    # context = {'carpoint': carpoint}
-    # return render(request, 'point/car_calculation.html', context)
 
-@require_POST
-def Carsave(request):
-    form = CarForm(request.POST)
-    userpoint = Userpoint()
-    print(form)
-    print(userpoint)
 
-    userpoint.user = request.user
-    print('user1', userpoint.user)
-    userpoint.carpoint = form.cleaned_data['carpoint']
-    # print('carpoint', form.cleaned_data['carpoint'])
-    print('carpoint',userpoint.carpoint)
-    # print('carbon1', userpoint.carbonpoint)
-    # userpoint.totalpoint = userpoint.carbonpoint*userpoint.greenpoint
-    userpoint.create_date = timezone.now()
-    print('date1', userpoint.create_date)
-    userpoint.save()
-    print('userpoint1', userpoint.user, userpoint.carpoint, userpoint.create_date)
-    return render(request, 'mypage/mypage.html')
+# @require_POST
+# def Carsave(request):
+#     form = AddCarForm
+#     context = {
+#         'form':form,
+#     }
+#     return render(request, 'mypage/mypage.html', context)
+#
+    # print(form)
+    # print(userpoint)
+    #
+    # userpoint.user = request.user
+    # print('user1', userpoint.user)
+    # userpoint.carpoint = form.cleaned_data['carpoint']
+    # # print('carpoint', form.cleaned_data['carpoint'])
+    # print('carpoint',userpoint.carpoint)
+    # # print('carbon1', userpoint.carbonpoint)
+    # # userpoint.totalpoint = userpoint.carbonpoint*userpoint.greenpoint
+    # userpoint.create_date = timezone.now()
+    # print('date1', userpoint.create_date)
+    # userpoint.save()
+    # print('userpoint1', userpoint.user, userpoint.carpoint, userpoint.create_date)
+    # return render(request, 'mypage/mypage.html', context)
+
+def carpoint_create(request):
+
+    if request.method == 'POST':
+        form = Formcarpoint(request.POST)
+        if form.is_valid():
+            carpoint = form.save(commit=False)
+            carpoint.save()
+            return redirect('OCOP:OCOP')
+    else:
+        form = Formcarpoint()
+    context={
+        'form':form
+    }
+    return render(request, 'point/car_calculation.html', context)
