@@ -13,8 +13,6 @@ urlpatterns = [
     path('carbonlist/delete/<int:Carbonpoint_id>/', views.Carbon_Delete, name='carbondelete'),
     path('greenlist/delete/<int:Greenpoint_id>/', views.Green_Delete, name='greendelete'),
 
-
-
     path('carbon/', views.Carbonpage, name='carbonpage'),
     path('green/', views.Greenpage, name='greenpage'),
     path('detail/', views.Detail, name='detail'),
@@ -22,14 +20,11 @@ urlpatterns = [
     path('add/<int:Carbonpoint_id>/', views.Add, name='add'),
     path('addgreen/<int:Greenpoint_id>/', views.Addgreen, name='addgreen'),
     path('remove/<int:Carbonpoint_id>/',views.Remove, name='remove'),
-    # path('removecarbon/', views.Removecarbon, name='removecarbon'),
     path('removegreen/<int:Greenpoint_id>/', views.Removegreen, name='removegreen'),
 
     path('car/', views.Carpage, name='carpage'),
     path('calculation/',views.Carcalculation,name='calculation'),
     path('carpoint_create/',views.carpoint_create,name='carpoint_create'),
-    # path('usercar/', views.Usercar, name='usercar'),
-    # path('calculation/',views.Carsave,name='carsave'),
 
     path('saveusercarbon/', views.Saveusercarbon, name='saveusercarbon'),
     path('usercarbon/', views.Usercarbon, name='usercarbon'),

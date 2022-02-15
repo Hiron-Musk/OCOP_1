@@ -6,9 +6,7 @@ from .forms import QuestionForm, AnswerForm
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q, Count
-# from django.http import HttpResponse
 
-# Create your views here.
 def pybo(request, category_name='notice'):
     """
     pybo 목록 출력
@@ -37,12 +35,10 @@ def pybo(request, category_name='notice'):
         question_list = question_all_list.filter(
             Q(subject__icontains=kw) |  # 제목검색
             Q(content__icontains=kw) #|  # 내용검색
-            # Q(author__username__icontains=kw) |  # 질문 글쓴이검색
-            # Q(answer__author__username__icontains=kw)  # 답변 글쓴이검색
         ).distinct()
 
     # 페이징처리
-    paginator = Paginator(question_list, 5)  # 페이지당 10개씩 보여주기
+    paginator = Paginator(question_list, 5)  # 페이지당 5개씩 보여주기
     page_obj = paginator.get_page(page)
 
     context = {'question_list': page_obj, 'page': page, 'kw': kw, 'so': so,
@@ -173,9 +169,6 @@ def vote_question(request, question_id):
     pybo 질문추천등록
     """
     question = get_object_or_404(Question, pk=question_id)
-    # if request.user == question.author:
-    #     messages.error(request, '본인이 작성한 글은 추천할수 없습니다')
-    # else:
     question.voter.add(request.user)
     return redirect('pybo:detail', question_id=question.id)
 
@@ -185,8 +178,5 @@ def vote_answer(request, answer_id):
     pybo 답글추천등록
     """
     answer = get_object_or_404(Answer, pk=answer_id)
-    # if request.user == answer.author:
-    #     messages.error(request, '본인이 작성한 글은 추천할수 없습니다')
-    # else:
     answer.voter.add(request.user)
     return redirect('pybo:detail', question_id=answer.question.id)
