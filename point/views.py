@@ -225,7 +225,7 @@ def Saveusercarbon(request):
     userpoint.carbonpoint = cart.get_total_point
     userpoint.create_date=timezone.now()
     userpoint.save()
-    return render(request, 'mypage/mypage.html')
+    return render(request, 'OCOP/main_page.html')
 
 @require_POST
 def Saveusergreen(request):
@@ -235,7 +235,7 @@ def Saveusergreen(request):
     userpoint.greenpoint = cart.get_total_gpoint
     userpoint.create_date = timezone.now()
     userpoint.save()
-    return render(request, 'mypage/mypage.html')
+    return render(request, 'OCOP/main_page.html')
 @require_POST
 def Usercarbon(request):
     form = Formcarbonpoint(request.POST)

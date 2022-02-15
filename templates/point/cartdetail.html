@@ -6,24 +6,32 @@
 {% endblock %}
 
 {% block content %}
+<div class="container my-3">
 <table class="table table-striped">
     <div class="green-title">
         <h5 class="my-3 border-bottom pb-2" align="center">탄소포인트</h5>
     </div>
+    <thead>
+        <tr>
+            <th scope="col">종류</th>
+            <th scope="col">수량</th>
+            <th scope="col"></th>
+            <th scope="col">포인트량</th>
+            <th scope="col">총포인트량</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
     <tbody>
-
         <div>
         {% for item in cart %}
             {% with Carbonpoint=item.carbonpoint %}
             <tr>
-                <td>{{ Carbonpoint.pointtype }}</td>
-
-                <td>{{ item.quantity }}</td>
-                <td>{{ item.is_update }}</td>
-
-                <td><a href="{% url 'point:remove' Carbonpoint.id %}">삭제하기</a></td>
+                <th scope="col">{{ Carbonpoint.pointtype }}</th>
+                <td scope="col">{{ item.quantity }}</td>
+                <td scope="col">{{ item.is_update }}</td>
                 <td class="num">{{ item.cpoint }}P</td>
-                <td class="num">{{ item.total_cpoint }}P</td>
+                <th class="num">{{ item.total_cpoint }}P</th>
+                <td><button type="button" class="btn btn-success mr-3" onclick="location.href='{% url 'point:remove' Carbonpoint.id %}' " style="float:right;" >삭제하기</button></td>
             </tr>
             {% endwith %}
         {% endfor %}
@@ -35,17 +43,16 @@
     <table class="table table-striped">
         <tbody>
         <tr class="total">
-            <td>Total</td>
-            <td colspan="4"></td>
-            <td class="num">{{ cart.get_total_point }}P</td>
+            <th class="col"> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Total &emsp; {{ cart.get_total_point }}P</th>
+<!--            <th class="num" style="float:right;">{{ cart.get_total_point }}P</th>-->
         </tr>
         </tbody>
     </table>
-<input type="submit" class="ben btn-primary ben-sm" value="저장하기"></form>
-        <p class="text-right">
-        <a href="{% url 'point:carbonpage' %}" class="btn btn-secondary">포인트 추가하기</a>
-<!--        <a href="{% url 'point:saveusercarbon' %}" class="btn btn-secondary">저장하기</a>-->
-
-        </p>
-    </form>
+<input type="submit" class="btn btn-success mr-3" style="float:right;" value="저장하기">
+    <a href="{% url 'point:carbonpage' %}" class="btn btn-outline-success mr-3"style="float:right;">포인트 추가하기</a>
+<!--    <p class="text-right">-->
+<!--        <a href="{% url 'point:carbonpage' %}" class="btn btn-info">포인트 추가하기</a>-->
+<!--    </p>-->
+</form>
+</div>
 {% endblock %}
