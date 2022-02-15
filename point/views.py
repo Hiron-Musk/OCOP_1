@@ -1,12 +1,9 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Carbonpoint, Greenpoint, Userpoint
-<<<<<<< HEAD
-from .forms import CarbonForm, GreenForm, AddPointForm, AddGreenForm, Savecarbonpoint, Formcarbonpoint
-=======
-from .forms import CarbonForm, GreenForm, AddPointForm, AddGreenForm,CarForm,AddCarForm,Savecarbonpoint
 
->>>>>>> fb13382bf58db14a749415e2d62202140bdc663e
+from .forms import CarbonForm, GreenForm, AddPointForm, AddGreenForm,CarForm,AddCarForm,Savecarbonpoint,Formcarbonpoint
+
 
 from django.views.decorators.http import require_POST
 from .cart import Cart, Cartgreen
