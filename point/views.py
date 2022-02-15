@@ -3,6 +3,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Carbonpoint, Greenpoint, Userpoint, Carpoint
 from .forms import CarbonForm, GreenForm, AddPointForm, AddGreenForm,CarForm,AddCarForm,Savecarbonpoint,Formcarbonpoint,Formcarpoint
 
+
+
 from django.views.decorators.http import require_POST
 from .cart import Cart, Cartgreen
 from django.utils import timezone
@@ -155,8 +157,7 @@ def Greenpage(request):
 def Detail(request):
     cart = Cart(request)
     for point in cart:
-        point['quantity_form'] = AddPointForm(initial={'quantity':point['quantity'], 'is_update':True})
-
+        point = AddPointForm(initial={'quantity':point['quantity'], 'is_update':True})
         context = {'point': point, 'cart': cart}
         return render(request, 'point/cartdetail.html', context)
 
@@ -165,7 +166,7 @@ def Detailgreen(request):
     cart = Cartgreen(request)
     for point in cart:
         print('Detailgreen2')
-        point['quantity_form']  = AddGreenForm(initial={'quantity':point['quantity'], 'is_update':True})
+        point = AddGreenForm(initial={'quantity':point['quantity'], 'is_update':True})
         context = {'point': point, 'cart': cart}
         return render(request, 'point/cartgreen.html', context)
 
@@ -224,7 +225,7 @@ def Saveusercarbon(request):
     userpoint.carbonpoint = cart.get_total_point
     userpoint.create_date=timezone.now()
     userpoint.save()
-    return render(request, 'OCOP/main_page.html')
+    return render(request, 'mypage/mypage.html')
 
 @require_POST
 def Saveusergreen(request):
@@ -234,8 +235,7 @@ def Saveusergreen(request):
     userpoint.greenpoint = cart.get_total_gpoint
     userpoint.create_date = timezone.now()
     userpoint.save()
-    return render(request, 'OCOP/main_page.html')
-
+    return render(request, 'mypage/mypage.html')
 @require_POST
 def Usercarbon(request):
     form = Formcarbonpoint(request.POST)

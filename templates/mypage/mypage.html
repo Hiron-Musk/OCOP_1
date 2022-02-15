@@ -24,13 +24,12 @@
                               var $mypageChart= $("#mypage-chart");
                               $.ajax({
                                 url: $mypageChart.data("url"),
-                                success: function(data) {
+                                success: function (data) {
 
                                   var ctx = $mypageChart[0].getContext("2d");
 
-                                  var config = {
+                                  new Chart(ctx, {
                                     type: 'bar',
-
                                     data: {
                                       labels: ['탄소포인트', '그린포인트', '자동차탄소포인트'],
                                       datasets: [{
@@ -39,23 +38,19 @@
                                         data: data.data
                                       }]
                                     },
-
                                     options: {
-                                      responsive: True,
+                                      responsive: true,
                                       legend: {
                                         position: 'top',
                                       },
-
                                       title: {
                                         display: true,
                                         text: 'My Point Chart'
                                       }
-
                                     }
+                                  });
 
-                                    var mypageChart= new Chart(ctx, config)
-                                  };
-
+                                }
                               });
 
                             });
