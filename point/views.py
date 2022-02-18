@@ -242,11 +242,14 @@ def Usercarbon(request):
 
     userpoint = Userpoint()
     userpoint.user = request.user
-    userpoint.carbonpoint = form.cleaned_data['cpoint']
+    if form.is_valid():
+        cd = form.cleaned_data
+        userpoint.carbonpoint = cd['cpoint']
+        print('form', userpoint.carbonpoint)
     userpoint.create_date = timezone.now()
     userpoint.save()
     context = {'userpoint':userpoint}
-    return render(request, 'point/carbon.html', context)
+    return render(request, 'OCOP/main_page.html', context)
 
 
 def Carcalculation(request):
