@@ -236,6 +236,7 @@ def Saveusergreen(request):
     userpoint.create_date = timezone.now()
     userpoint.save()
     return render(request, 'OCOP/main_page.html')
+
 @require_POST
 def Usercarbon(request):
     form = Formcarbonpoint(request.POST)
@@ -372,7 +373,6 @@ def Carcalculation(request):
     context = {'total_carpoint': total_carpoint}
     return render(request, 'point/car_calculation.html', context)
 
-
 def carpoint_create(request):
 
     if request.method == 'POST':
@@ -387,3 +387,16 @@ def carpoint_create(request):
         'form':form
     }
     return render(request, 'point/car_calculation.html', context)
+
+@require_POST
+def Saveusercar(request):
+    form = Formcarpoint(request.POST)
+    print('from', form)
+    userpoint = Userpoint()
+    userpoint.user = request.user
+    if form.is_valid():
+        cd = form.cleaned_data
+        userpoint.vehiclepoint = cd['carpoint']
+    userpoint.create_date = timezone.now()
+    userpoint.save()
+    return render(request, 'OCOP/main_page.html')

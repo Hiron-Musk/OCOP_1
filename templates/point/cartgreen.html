@@ -27,8 +27,8 @@
             {% with Greenpoint=gitem.greenpoint %}
             <tr>
                 <th scope="col">{{ Greenpoint.pointtype }}</th>
-                <td scope="col">{{ gitem.quantity_form.quantity }}</td>
-                <td scope="col">{{ gitem.quantity_form.is_update }}</td>
+                <td scope="col">{{ gitem.quantity }}</td>
+                <td scope="col">{{ gitem.is_update }}</td>
                 <td class="num">{{ gitem.gpoint }}P</td>
                 <th class="num">{{ gitem.total_gpoint }}P</th>
                 <td><button type="button" class="btn btn-success mr-3" onclick="location.href='{% url 'point:removegreen' Greenpoint.id %}' " style="float:right;" >삭제하기</button></td>

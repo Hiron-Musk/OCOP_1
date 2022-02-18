@@ -29,4 +29,5 @@ urlpatterns = [
     path('saveusercarbon/', views.Saveusercarbon, name='saveusercarbon'),
     path('usercarbon/', views.Usercarbon, name='usercarbon'),
     path('saveusergreen/', views.Saveusergreen, name='saveusergreen'),
+    path('saveusercar/', views.Saveusercar, name='saveusercar'),
 ]
