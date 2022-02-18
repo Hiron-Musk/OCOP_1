@@ -245,7 +245,7 @@ def Usercarbon(request):
     if form.is_valid():
         cd = form.cleaned_data
         userpoint.carbonpoint = cd['cpoint']
-        print('form', userpoint.carbonpoint)
+        # print('form', userpoint.carbonpoint)
     userpoint.create_date = timezone.now()
     userpoint.save()
     context = {'userpoint':userpoint}
